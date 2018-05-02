@@ -2,3 +2,12 @@ For Following users: https://api.twitter.com/1.1/friendships/create.json?user_id
 T.post('friendships/create', { id: '370742121' },  function (err, data, response) {
   console.log(data)
 })
+
+To check whether user follows us, use `friendships/lookup` and write up to 100 screen names.
+
+Getting results from json:
+T.post('friendships/destroy', { screen_name: 'yogyyata' }, function (err, data, response) {
+  var g = data;
+  var result = g.name;
+  console.log(result);
+});
