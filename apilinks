@@ -1,0 +1,4 @@
+For Following users: https://api.twitter.com/1.1/friendships/create.json?user_id=1401881&follow=true
+T.post('friendships/create', { id: '370742121' },  function (err, data, response) {
+  console.log(data)
+})

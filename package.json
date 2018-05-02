@@ -1,0 +1,27 @@
+{
+  "name": "glitter",
+  "version": "1.0.0",
+  "description": "A bot that brings you followers.",
+  "main": "glitter.js",
+  "scripts": {
+    "start": "node glitter.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KumarAbhirup/glitter.git"
+  },
+  "keywords": [
+    "twitter",
+    "followers"
+  ],
+  "author": "Kumar Abhirup",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KumarAbhirup/glitter/issues"
+  },
+  "homepage": "https://github.com/KumarAbhirup/glitter#readme",
+  "dependencies": {
+    "twit": "^2.2.9"
+  }
+}
