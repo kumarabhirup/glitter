@@ -8,16 +8,23 @@ var T = new Twit(config);
 // Pick a celebrity and grab all the Follower IDs
 T.get('followers/ids', { screen_name: 'elonmusk', count:'5000', cursor:'-1' },  function (err, data, response) {
 
-    for (var i = 0; i < 5000; i++) {
+      // Functional Loop
+      var i = 0;
+      function timedLoop() { // Follow Function
 
-        var peopleToFollow = data.ids[i];
+        setTimeout(function () { // Follows the user after every 3 seconds
 
-        // T.post('friendships/create', { id: peopleToFollow },  function (err, data, response) {
-        //   console.log(data);
-        // }); 
+            // Thing to be done repeatedly
+            var peopleToFollow = data.ids[i];
+            console.log(peopleToFollow);
+            i++;
+            if(i < 5000) {
+                timedLoop();
+            }
 
-        console.log(peopleToFollow);
+        }, 1000*3);
 
-    }
+      }
+      timedLoop();
 
 });
