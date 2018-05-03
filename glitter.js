@@ -12,19 +12,35 @@ T.get('followers/ids', { screen_name: 'elonmusk', count:'5000', cursor:'-1' },  
       var i = 0;
       function timedLoop() { // Follow Function
 
-        setTimeout(function () { // Follows the user after every 3 seconds
+        setTimeout(function () { // Follows the user after every `x` seconds
 
-            // Thing to be done repeatedly
-            var peopleToFollow = data.ids[i];
-            console.log(peopleToFollow);
+            /*=============================================>>>>>
+            = Thing to be done =
+            ===============================================>>>>>*/
+
+              // Convert id into screen_name
+                  var peopleToFollow = data.ids[i];
+                  T.get('users/show', { id: peopleToFollow },  function (err, data, response) {
+                    var screen_name = data.name;
+                    console.log(screen_name);
+                  });
+
+                  // console.log(peopleToFollow);
+
+            /*= End of Thing to be done =*/
+            /*=============================================<<<<<*/
+
+            // Increase value of variable `i` by 1. (Increment)
             i++;
+
+            // How many times to loop
             if(i < 5000) {
                 timedLoop();
             }
 
-        }, 1000*3);
+        }, 1000*3); // After how many seconds. `1000` means 1 second.
 
       }
-      timedLoop();
+      timedLoop(); // Run the loop
 
 });
