@@ -21,7 +21,7 @@ T.get('followers/ids', { screen_name: 'elonmusk', count:'5000', cursor:'-1' },  
               // Convert id into screen_name
                   var peopleToFollow = data.ids[i];
                   T.get('users/show', { id: peopleToFollow },  function (err, data, response) {
-                    var screen_name = data.name;
+                    var screen_name = data.screen_name;
                     console.log(screen_name);
                   });
 
