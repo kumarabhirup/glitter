@@ -11,3 +11,5 @@ T.post('friendships/destroy', { screen_name: 'yogyyata' }, function (err, data, 
   var result = g.name;
   console.log(result);
 });
+
+Rate limit exceeded means you used up 100 api calls in an hour. Wait for the next hour.

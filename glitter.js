@@ -6,64 +6,90 @@ var config = require('./config'); // Find config.js in same folder
 var T = new Twit(config);
 
 // Pick a celebrity and grab all the Follower IDs
-T.get('followers/ids', { screen_name: 'wesbos', count:'10', cursor:'-1' },  function (err, data, response) {
+T.get('followers/ids', { screen_name: 'wesbos', count:'5000', cursor:'-1' },  function (err, data, response) {
 
-      // Functional Loop
-      var i = 0;
-      function timedLoop() { // Follow Function
+      if(!err){ // Check for an error
 
-        setTimeout(function () { // Follows the user after every `x` seconds
+          // Functional Loop
+          var i = 0;
+          function timedLoop() { // Follow Function
 
-            /*=============================================>>>>>
-            = Thing to be done =
-            ===============================================>>>>>*/
+            setTimeout(function () { // Follows the user after every `x` seconds
 
-              // Convert id into screen_name
-                  var peopleToFollow = data.ids[i];
-                  T.get('users/show', { id: peopleToFollow },  function (err, data, response) {
+                /*=============================================>>>>>
+                = Thing to be done =
+                ===============================================>>>>>*/
 
-                    var screen_name = data.screen_name;
+                  // Convert id into screen_name
+                      var peopleToFollow = data.ids[i];
+                      T.get('users/show', { id: peopleToFollow },  function (err, data, response) {
 
-                    if(screen_name != null){ // Check if user is fake or not
+                        var screen_name = data.screen_name;
 
-                      // Follow and Unfollow the follower
-                      T.post('friendships/create', { screen_name: screen_name },  function (err, data, response) {
-                        if(!err){
-                          console.log("Wesbos follower "+screen_name+" followed.")
-                        } else{
-                          console.log(err);
+                        if(screen_name != null){ // Check if user is fake or not
+
+                          /*=============================================>>>>>
+                          = Follow him or her =
+                          ===============================================>>>>>*/
+
+                            // Look for relationship between you and user
+                            var doYouFollow = data.following;
+                            if(doYouFollow == false){ // If you don't follow, then follow them
+
+                              // Follow
+                              T.post('friendships/create', { screen_name: screen_name },  function (err, data, response) {
+                                if(!err){
+                                  console.log("Wesbos follower "+screen_name+" followed.")
+                                } else{
+                                  console.log(err);
+                                }
+                              });
+
+                            } else{ // If you already follow them
+
+                              /*// setTimeout(function () {
+
+                                // UnFollow
+                                T.post('friendships/destroy', { screen_name: screen_name },  function (err, data, response) {
+                                  if(!err){
+                                    console.log("Wesbos follower "+screen_name+" unfollowed.")
+                                  } else{
+                                    console.log(err);
+                                  }
+                                });
+
+                              // }, 1000*60*60*24*3); // 3 days*/
+
+                            }
+
+                          /*= End of Follow him or her =*/
+                          /*=============================================<<<<<*/
+
+                        } else if (screen_name == null) {
+                          return null;
                         }
+
                       });
 
-                      /*T.post('friendships/destroy', { screen_name: screen_name },  function (err, data, response) {
-                        if(!err){
-                          console.log("Wesbos follower "+screen_name+" unfollowed.")
-                        } else{
-                          console.log(err);
-                        }
-                      });*/
+                /*= End of Thing to be done =*/
+                /*=============================================<<<<<*/
 
-                    } else if (screen_name == null) {
-                      return null;
-                    }
+                // Increase value of variable `i` by 1. (Increment)
+                i++;
 
-                  });
+                // How many times to loop
+                if(i < 5000) {
+                    timedLoop();
+                }
 
-            /*= End of Thing to be done =*/
-            /*=============================================<<<<<*/
+            }, 1000*5); // After how many seconds. `1000` means 1 second.
 
-            // Increase value of variable `i` by 1. (Increment)
-            i++;
+          }
 
-            // How many times to loop
-            if(i < 10) {
-                timedLoop();
-            }
+          timedLoop(); // Run the loop
 
-        }, 5); // After how many seconds. `1000` means 1 second.
-
+      } else{
+        console.log(err);
       }
-
-      timedLoop(); // Run the loop
 
 });
