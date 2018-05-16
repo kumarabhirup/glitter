@@ -47,18 +47,7 @@ T.get('followers/ids', { screen_name: 'wesbos', count:'5000', cursor:'-1' },  fu
 
                             } else{ // If you already follow them
 
-                              /*// setTimeout(function () {
 
-                                // UnFollow
-                                T.post('friendships/destroy', { screen_name: screen_name },  function (err, data, response) {
-                                  if(!err){
-                                    console.log("Wesbos follower "+screen_name+" unfollowed.")
-                                  } else{
-                                    console.log(err);
-                                  }
-                                });
-
-                              // }, 1000*60*60*24*3); // 3 days*/
 
                             }
 
@@ -82,7 +71,7 @@ T.get('followers/ids', { screen_name: 'wesbos', count:'5000', cursor:'-1' },  fu
                     timedLoop();
                 }
 
-            }, 1000*5); // After how many seconds. `1000` means 1 second.
+            }, 1000*20); // After how many seconds. `1000` means 1 second.
 
           }
 
