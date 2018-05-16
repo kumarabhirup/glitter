@@ -7,19 +7,23 @@ var config = require('./config'); // Find config.js in same folder
 var firebase = require("firebase-admin");
 var serviceAccount = require("./glitter.json");
 
-firebase.initializeApp({
-  credential: firebase.credential.cert(serviceAccount),
-  databaseURL: "https://glitter-bot.firebaseio.com"
-});
+  // Initialize connection
+  firebase.initializeApp({
+    credential: firebase.credential.cert(serviceAccount),
+    databaseURL: "https://glitter-bot.firebaseio.com"
+  });
 
-firebase.database().ref('followed').set({
-  screen_name: "kumar",
-  im: "yogyyata"
-});
-
-firebase.database().ref('followed').once("value", function(snapshot){
-  console.log(snapshot.val());
-});
+  // Action
+  firebase.database().ref("followed_followers_of").child("wesbos").set({
+    pepina: {
+      date_of_birth: "June 23, 1912",
+      full_name: "Alan Turing"
+    },
+    yogyyata: {
+      date_of_birth: "December 9, 1906",
+      full_name: "Grace Hopper"
+    }
+  });
 
 // var T = new Twit(config);
 //

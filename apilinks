@@ -27,3 +27,15 @@ setTimeout(function () {
   });
 
 }, 1000*60*60*24*3); // 3 days
+
+Save data to Firebase:
+firebase.database().ref("followed_followers_of").child("wesbos").set({
+  pepina: {
+    date_of_birth: "June 23, 1912",
+    full_name: "Alan Turing"
+  },
+  yogyyata: {
+    date_of_birth: "December 9, 1906",
+    full_name: "Grace Hopper"
+  }
+});
