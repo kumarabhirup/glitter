@@ -38,8 +38,9 @@ T.get('followers/ids', { screen_name: 'wesbos', count:'5000', cursor:'-1' },  fu
 
                         var screen_name = data.screen_name;
                         var protected_acc = data.protected;
+                        var verified = data.verified;
 
-                        if(screen_name != null && protected_acc==false){ // Check if user's account is eligible and NOT protected
+                        if(screen_name != null && protected_acc==false && verified==false){ // Check if user's account is eligible and NOT protected
 
                           /*=============================================>>>>>
                           = Follow him or her =
@@ -56,7 +57,7 @@ T.get('followers/ids', { screen_name: 'wesbos', count:'5000', cursor:'-1' },  fu
                                   console.log("Wesbos follower "+screen_name+" followed.");
 
                                   // Save the data into database
-                                  firebase.database().ref("followed_followers_of").child(following_followers_of).set({
+                                  firebase.database().ref("followed_followers_of").child(following_followers_of).update({
                                     [screen_name]: {
                                       connection: "followed"
                                     }
@@ -67,39 +68,18 @@ T.get('followers/ids', { screen_name: 'wesbos', count:'5000', cursor:'-1' },  fu
                                 }
                               });
 
-                              // // Unfollow the people who followed gradually after every 10 days
-                              // setTimeout(unFollowAfterSomePeriod, 1000*60*60*24*10); // 10 days
-                              // function unFollowAfterSomePeriod(){
-                              //   // UnFollow
-                              //   T.post('friendships/destroy', { screen_name: screen_name },  function (err, data, response) {
-                              //     if(!err){
-                              //       console.log("Wesbos follower "+screen_name+" unfollowed.")
-                              //     } else{
-                              //       console.log(err);
-                              //     }
-                              //   });
-                              // }
-
-                            } else{ // If you already follow them
-
-                              // setTimeout(unFollowAfterSomePeriod, 1000*60*60*24*3); // 3 days
-                              // function unFollowAfterSomePeriod(){
-                              //   // UnFollow
-                              //   T.post('friendships/destroy', { screen_name: screen_name },  function (err, data, response) {
-                              //     if(!err){
-                              //       console.log("Wesbos follower "+screen_name+" unfollowed.")
-                              //     } else{
-                              //       console.log(err);
-                              //     }
-                              //   });
-                              // }
-
-                            }
-
                           /*= End of Follow him or her =*/
                           /*=============================================<<<<<*/
 
-                        } else if (screen_name == null || protected_acc==true) {
+                            } else{ // If you already follow them
+
+                              function doNothing(){
+                                null;
+                              }
+
+                            }
+
+                        } else if (screen_name == null || protected_acc==true || verified==true) {
                           return null;
                         }
 
