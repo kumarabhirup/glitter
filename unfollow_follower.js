@@ -50,7 +50,7 @@ var T = new Twit(config);
             // UnFollow
             T.post('friendships/destroy', { screen_name: screen_name_to_unfollow },  function (err, data, response) {
               if(!err){
-                console.log("Wesbos follower "+screen_name+" unfollowed.");
+                console.log("Wesbos follower "+screen_name_to_unfollow+" unfollowed.");
 
                 // Create an `unfollowed` table and insert the screen_name there
                 firebase.database().ref("unfollowed").child("wesbos").update({
@@ -60,7 +60,7 @@ var T = new Twit(config);
                 });
 
                 // Delete the screen_name from `to_unfollow` table
-                firebase.database().ref("followbacks/wesbos").child(screen_name).remove();
+                firebase.database().ref("followbacks/wesbos").child(screen_name_to_unfollow).remove();
 
               } else{
                 console.log(err);
