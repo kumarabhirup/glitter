@@ -4,7 +4,7 @@
   "description": "A bot that brings you followers.",
   "main": "glitter.js",
   "scripts": {
-    "start": "node glitter.js",
+    "start": "node follower.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

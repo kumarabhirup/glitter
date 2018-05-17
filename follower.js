@@ -1,4 +1,4 @@
-console.log('Bot is starting...');
+console.log('The mass following bot is starting...');
 
 var Twit = require('twit');
 var config = require('./config'); // Find config.js in same folder
@@ -14,7 +14,17 @@ var serviceAccount = require("./glitter.json");
   });
 
 var T = new Twit(config);
-var stream = T.stream('statuses/filter', { track: ['bananas', 'oranges', 'strawberries'] })
+
+// firebase.database().ref("followed_followers_of").child("wesbos").update({
+//   Yogyyata: {
+//     connection: "followed"
+//   }
+// });
+// firebase.database().ref("to_unfollow").child("wesbos").update({
+//   Yogyyata: {
+//     connection: "idk"
+//   }
+// });
 
 /*=============================================>>>>>
 = Phase 1 (Follow the eligible users and store their screen_name in Firebase) =
@@ -64,6 +74,13 @@ var stream = T.stream('statuses/filter', { track: ['bananas', 'oranges', 'strawb
                                     firebase.database().ref("followed_followers_of").child(following_followers_of).update({
                                       [screen_name]: {
                                         connection: "followed"
+                                      }
+                                    });
+
+                                    // Save the data into the row of screen_names to be unfollwed
+                                    firebase.database().ref("to_unfollow").child(following_followers_of).update({
+                                      [screen_name]: {
+                                        connection: "idk"
                                       }
                                     });
 
