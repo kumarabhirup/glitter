@@ -4,8 +4,8 @@
   "description": "A bot that brings you followers.",
   "main": "glitter.js",
   "scripts": {
-    "start": "node follower.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node streamer.js",
+    "test": "This is the test..."
   },
   "repository": {
     "type": "git",

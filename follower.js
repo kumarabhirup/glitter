@@ -2,6 +2,7 @@ console.log('The mass following bot is starting...');
 
 var Twit = require('twit');
 var config = require('./config'); // Find config.js in same folder
+var settings = require('./settings'); // Find for settings.js in same folder
 
 // Connecting Firebase database
 var firebase = require("firebase-admin");
@@ -19,9 +20,9 @@ var T = new Twit(config);
 = Phase 1 (Follow the eligible users and store their screen_name in Firebase) =
 ===============================================>>>>>*/
   // Pick a celebrity and grab all the Follower IDs
-  T.get('followers/ids', { screen_name: 'wesbos', count:'5000', cursor:'-1' },  function (err, data, response) {
+  T.get('followers/ids', { screen_name: settings.PERSON_TWITTER_HANDLE, count:'5000', cursor:'-1' },  function (err, data, response) {
 
-        var following_followers_of = "wesbos";
+        var following_followers_of = settings.PERSON_TWITTER_HANDLE;
 
         if(!err){ // Check for an error
 
@@ -57,7 +58,7 @@ var T = new Twit(config);
                                 T.post('friendships/create', { screen_name: screen_name },  function (err, data, response) {
                                   if(!err){
 
-                                    console.log("Wesbos follower "+screen_name+" followed.");
+                                    console.log(settings.PERSON_NICKNAME + " follower " + screen_name + " followed.");
 
                                     // Save the data into database
                                     firebase.database().ref("followed_followers_of").child(following_followers_of).update({
@@ -106,7 +107,7 @@ var T = new Twit(config);
                       timedLoop();
                   }
 
-              }, 1000*3); // After how many seconds. `1000` means 1 second.
+              }, 1000*30); // After how many seconds. `1000` means 1 second.
 
             }
 
@@ -119,8 +120,3 @@ var T = new Twit(config);
   });
 /*= End of Phase 1 =*/
 /*=============================================<<<<<*/
-
-
-function timePass(lol){
-  console.log("Just having fun with some code!! XD");
-}
