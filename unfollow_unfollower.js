@@ -78,7 +78,7 @@ var T = new Twit(config);
               timedLoop();
           }
 
-      }, 1000*2); // After how many seconds. `1000` means 1 second.
+      }, 1000*3); // After how many seconds. `1000` means 1 second.
 
     }
 
