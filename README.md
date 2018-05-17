@@ -1,7 +1,15 @@
 # Glitter!
 A Twitter bot that brings you followers!
 
-## Documentation is being drafted.
-This software can yet be freely used without any licence. This project is complete but still has some code remaining. Functionality is at its best. Use it and be sure you give a feedback.
+## How does it work?
+Simply saying, this Twitter bot follows Thousands of people of your interests at once. The ones who don't follow you back can be unfollowed after some days. And the ones who have followed you back can also be unfollowed, but after 30 days.
 
+This bot can work 24x7 for you being a watchdog about who followed back and who you followed. A NoSQL database is used in backend to retrieve and use all the data about whom you followed and whom you haven't.
+
+This bot also takes some measures to prevent following false accounts. This software has been already tried many times. 1 out of every 5 people have followed back. That means, when this bot follows 5000 people, who have a fair chance of getting 1000 followers at once. **You can unfollow those exact people after some days. Not manually, bot does it for you!**
+
+## Documentation
 **Sorry for no documentation. I'm working on it so that you can use this software without any confusion and hassle!**
+
+## Terms of use
+This software is free to use. Enjoy glittering!
