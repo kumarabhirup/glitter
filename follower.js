@@ -15,17 +15,6 @@ var serviceAccount = require("./glitter.json");
 
 var T = new Twit(config);
 
-// firebase.database().ref("followed_followers_of").child("wesbos").update({
-//   Yogyyata: {
-//     connection: "followed"
-//   }
-// });
-// firebase.database().ref("to_unfollow").child("wesbos").update({
-//   Yogyyata: {
-//     connection: "idk"
-//   }
-// });
-
 /*=============================================>>>>>
 = Phase 1 (Follow the eligible users and store their screen_name in Firebase) =
 ===============================================>>>>>*/
