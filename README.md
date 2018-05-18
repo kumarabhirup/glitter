@@ -10,6 +10,7 @@ This bot also takes some measures to prevent following false accounts. This soft
 
 # Documentation
 <img src="https://github.com/KumarAbhirup/glitter/blob/master/assets/how-to-glitter.jpg" alt="How to use Glitter" title="How to use Glitter" width="100%">
+
 ## Steps to follow
 - Coming soon
 
