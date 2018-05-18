@@ -40,7 +40,7 @@ Install NPM [here](https://nodejs.org/en/download/current).
 - When dependencies are installed, you are done with the needs of bot!
 
 ### Step 5: Get Twitter API keys
-- Go to [Twitter App Manager](https://www.apps.twitter.com)
+- Go to [Twitter App Manager](https://apps.twitter.com)
 - Create your new app and let the App name be: `glitter-bot-<yourname>`
 - Once your app is created, go to the Keys and Access Token tab.
 - Copy and Paste all the 4 keys somewhere. You need those afterwards to link your bot to your Twitter account.
@@ -69,16 +69,17 @@ DATABASE: 'glitter-bot-<yourname>' // App name that you inserted while creating 
 
 ### Last Step: Upload the files to your Heroku server
 - To upload all the files to the Heroku server, you need Git installed (Step 1).
-- Do you remember where you saved those Twitter API keys in Step 5? You need them now! Login to your Heroku account on CLI, and Be sure you write this command in terminal with the API Keys:
-```
-$ heroku config:add CONSUMER_KEY=<your_consumer_key> CONSUMER_SECRET=<your_consumer_secret> ACCESS_TOKEN=<your_access_token> ACCESS_TOKEN_SECRET=<your_access_token_secret>
-```
 - Write these commands in Terminal (Make sure you are at Project's root path):
 ```
 $ git init
+$ heroku git:remote -a <name_of_your_heroku_app>
 $ git add .
 $ git commit -am "My Glitter bot deployed"
 $ git push heroku master
+```
+- Do you remember where you saved those Twitter API keys in Step 5? You need them now! Login to your Heroku account on CLI, and Be sure you write this command in terminal with the API Keys:
+```
+$ heroku config:add CONSUMER_KEY=<your_consumer_key> CONSUMER_SECRET=<your_consumer_secret> ACCESS_TOKEN=<your_access_token> ACCESS_TOKEN_SECRET=<your_access_token_secret>
 ```
 - Once you push all your files, go to `resources` tab in Heroku Dashboard, and you should see something like this:
 
@@ -86,6 +87,7 @@ $ git push heroku master
 
 - As you see in above image, switch on the `streamer` dyno to make your streamer work 24x7
 - To check if you got any errors, open Terminal and type `heroku logs`. If you see good things, congratulations! Streamer is working...
+- Most of the times, you might find an error that says `glitter.json module not found`. This is a serious issue to work with. Will come up with the solution soon.
 - All this was just a setup. **THE REAL STUFF HASN'T YET STARTED!**
 
 ---
