@@ -9,9 +9,11 @@ This bot can work 24x7 for you being a watchdog about who followed back and who 
 This bot also takes some measures to prevent following false accounts. This software has been already tried many times. 1 out of every 5 people have followed back. That means, when this bot follows 5000 people, who have a fair chance of getting 1000 followers at once. **You can unfollow those exact people after some days. Not manually, bot does it for you!**
 
 ## Documentation
-![How to use Glitter](assets/how-to-glitter.jpg "How to use #Glitter")
+<img src="https://github.com/KumarAbhirup/glitter/blob/master/assets/how-to-glitter.jpg" alt="How to use Glitter" title="How to use Glitter" width="100%">
 <br/>
-**Documentation coming soon...**
+
+### Steps to follow
+- Coming soon
 
 ## Terms of use
 This software is free to use. Enjoy glittering!
