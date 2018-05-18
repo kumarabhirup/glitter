@@ -9,9 +9,10 @@ var firebase = require("firebase-admin");
 var serviceAccount = require("./glitter.json");
 
   // Initialize connection
+  var database = "https://" + settings.DATABASE + ".firebaseio.com";
   firebase.initializeApp({
     credential: firebase.credential.cert(serviceAccount),
-    databaseURL: "https://glitter-bot.firebaseio.com"
+    databaseURL: database
   });
 
 var T = new Twit(config);

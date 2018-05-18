@@ -24,20 +24,20 @@ NPM is the heart of Glitter. If you don't have that, Glitter won't work.
 Install NPM [here](https://nodejs.org/en/download/current).
 
 ### Step 3: Sign up with Firebase (Google)
-<img src="https://github.com/KumarAbhirup/glitter/blob/master/assets/firebase-homepage.jpg" alt="Firebase" title="Firebase" width="100%">
-
 - To sign up at Firebase, you need a Gmail account.
 - Head over to the [Firebase console](https://console.firebase.google.com/u/0/), and click add Project
 - Write your project name like this: `glitter-bot-<yourname>` and click Create project
 - Once you reach dashboard, Head Over to the settings icon at the top left and click `Project Settings`.
 - Go to the Service Accounts tab and then click `Generate new private key` button. This should download a file. Rename that file to `glitter.json` and you're done with Firebase.
 
+<img src="https://github.com/KumarAbhirup/glitter/blob/master/assets/firebase-homepage.jpg" alt="Firebase" title="Firebase" width="100%">
+
 ### Step 4: Download the Glitter Project
 - Download all the files to your local machine by either cloning or directly downloading the zip file from this GitHub repo.
 - Once you downloaded the files, open `Terminal` if you are on Mac and if you use Windows, use the `Git bash` that you downloaded in Step 1.
 - Once you open Terminal, enter into the project file: `$ cd glitter`. The command depends on your current folder location. **If you don't know how to use terminal, you may need to learn small tit-bits on internet.**
 - Once you are in `glitter` folder, type this command in the Terminal: `$ npm install`. This process will download all the needed files that makes Glitter work.
-- When dependancies are installed, you are done with the needs of bot!
+- When dependencies are installed, you are done with the needs of bot!
 
 ### Step 5: Get Twitter API keys
 <img src="https://github.com/KumarAbhirup/glitter/blob/master/assets/twitter-api.png" alt="Twitter API" title="Twitter API" width="100%">
@@ -61,6 +61,10 @@ Install NPM [here](https://nodejs.org/en/download/current).
 ```
 PERSON_TWITTER_HANDLE: 'john_doe', // The Twitter handle (without @) of the person whose followers are to be followed
 PERSON_NICKNAME: 'JohnDoe' // A small name or a nickname of that person
+```
+- In `settings.js` change the `DATABASE` property to the app name that you inserted in Firebase. In your case, it might be `glitter-bot-<yourname>`.
+```
+DATABASE: 'glitter-bot-<yourname>' // App name that you inserted while creating project at Firebase
 ```
 - Remember the `glitter.json` file that you downloaded in Step 3? Copy that file to this project folder.
 - **And you are almost done with your bot!**
