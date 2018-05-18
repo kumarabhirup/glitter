@@ -9,7 +9,7 @@ This bot can work 24x7 for you being a watchdog about who followed back and who 
 This bot also takes some measures to prevent following false accounts. This software has been already tried many times. 1 out of every 5 people have followed back. That means, when this bot follows 5000 people, who have a fair chance of getting 1000 followers at once. **You can unfollow those exact people after some days. Not manually, bot does it for you!**
 
 # Documentation
-<img src="https://github.com/KumarAbhirup/glitter/blob/master/assets/how-to-glitter.jpg" alt="How to use Glitter" title="How to use Glitter" width="100%">
+<img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/how-to-glitter.jpg" alt="How to use Glitter" title="How to use Glitter" width="100%">
 
 ## Steps to follow
 
@@ -18,7 +18,7 @@ Git will be useful for you as well as for Glitter bot to work efficiently.
 Install Git Command Line tools [here](https://git-scm.com/downloads).
 
 ### Step 2: Install Nodejs and NPM
-<img src="https://github.com/KumarAbhirup/glitter/blob/master/assets/nodejs-download.jpg" alt="Download NodeJs" title="Download NodeJs" width="100%">
+<img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/nodejs-download.jpg" alt="Download NodeJs" title="Download NodeJs" width="100%">
 
 NPM is the heart of Glitter. If you don't have that, Glitter won't work.
 Install NPM [here](https://nodejs.org/en/download/current).
@@ -30,7 +30,7 @@ Install NPM [here](https://nodejs.org/en/download/current).
 - Once you reach dashboard, Head Over to the settings icon at the top left and click `Project Settings`.
 - Go to the Service Accounts tab and then click `Generate new private key` button. This should download a file. Rename that file to `glitter.json` and you're done with Firebase.
 
-<img src="https://github.com/KumarAbhirup/glitter/blob/master/assets/firebase-homepage.jpg" alt="Firebase" title="Firebase" width="100%">
+<img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/firebase-homepage.jpg" alt="Firebase" title="Firebase" width="100%">
 
 ### Step 4: Download the Glitter Project
 - Download all the files to your local machine by either cloning or directly downloading the zip file from this GitHub repo.
@@ -40,8 +40,6 @@ Install NPM [here](https://nodejs.org/en/download/current).
 - When dependencies are installed, you are done with the needs of bot!
 
 ### Step 5: Get Twitter API keys
-<img src="https://github.com/KumarAbhirup/glitter/blob/master/assets/twitter-api.png" alt="Twitter API" title="Twitter API" width="100%">
-
 - Go to [Twitter App Manager](https://www.apps.twitter.com)
 - Create your new app and let the App name be: `glitter-bot-<yourname>`
 - Once your app is created, go to the Keys and Access Token tab.
@@ -84,7 +82,7 @@ $ git push heroku master
 ```
 - Once you push all your files, go to `resources` tab in Heroku Dashboard, and you should see something like this:
 
-<img src="https://github.com/KumarAbhirup/glitter/blob/master/assets/heroku.jpg" alt="Heroku Resources" title="Heroku Resources" width="100%">
+<img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/heroku.jpg" alt="Heroku Resources" title="Heroku Resources" width="100%">
 
 - As you see in above image, switch on the `streamer` dyno to make your streamer work 24x7
 - To check if you got any errors, open Terminal and type `heroku logs`. If you see good things, congratulations! Streamer is working...
