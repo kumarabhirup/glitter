@@ -17,11 +17,11 @@ This bot also takes some measures to prevent following false accounts. This soft
 Git will be useful for you as well as for Glitter bot to work efficiently.
 Install Git Command Line tools [here](https://git-scm.com/downloads).
 
-### Step 2: Install Nodejs and NPM
+<!-- ### Step 2: Install Nodejs and NPM
 NPM is the heart of Glitter. If you don't have that, Glitter won't work.
-Install NPM [here](https://nodejs.org/en/download/current).
+Install NPM [here](https://nodejs.org/en/download/current). -->
 
-### Step 3: Sign up with Firebase (Google)
+### Step 2: Sign up with Firebase (Google)
 - To sign up at Firebase, you need a Gmail account.
 - Head over to the [Firebase console](https://console.firebase.google.com/u/0/), and click add Project
 - Write your project name like this: `glitter-bot-<yourname>` and click Create project
@@ -30,14 +30,14 @@ Install NPM [here](https://nodejs.org/en/download/current).
 
 <img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/firebase-homepage.jpg" alt="Firebase" title="Firebase" width="100%">
 
-### Step 4: Download the Glitter Project
+### Step 3: Download the Glitter Project
 - Download all the files to your local machine by either cloning or directly downloading the zip file from this GitHub repo.
 - Once you downloaded the files, open `Terminal` if you are on Mac and if you use Windows, use the `Git bash` that you downloaded in Step 1.
 - Once you open Terminal, enter into the project file: `$ cd glitter`. The command depends on your current folder location. **If you don't know how to use terminal, you may need to learn small tit-bits on internet.**
-- Once you are in `glitter` folder, type this command in the Terminal: `$ npm install`. This process will download all the needed files that makes Glitter work.
+<!-- - Once you are in `glitter` folder, type this command in the Terminal: `$ npm install`. This process will download all the needed files that makes Glitter work. -->
 - When dependencies are installed, you are done with the needs of bot!
 
-### Step 5: Get Twitter API keys
+### Step 4: Get Twitter API keys
 - Go to [Twitter App Manager](https://apps.twitter.com)
 - Create your new app and let the App name be: `glitter-bot-<yourname>`
 - Once your app is created, go to the Keys and Access Token tab.
@@ -45,14 +45,14 @@ Install NPM [here](https://nodejs.org/en/download/current).
 - If you see only 2 Consumer keys, you need to generate Access keys too...
 - After you are ready with your API keys pasted somewhere, head over to next step.
 
-### Step 6: Create your Heroku account
+### Step 5: Create your Heroku account
 - Log on to [heroku.com](https://www.heroku.com)
 - Create new App and let its name be: `glitter-bot-<yourname>`
 - Once you create this app, head over to [Heroku Command Line Tools](https://devcenter.heroku.com/categories/command-line) and Install the Heroku CLI.
 - When you are done downloading, open Terminal and type: `$ heroku login`
 - Then it will ask you email and password, and when you are logged in, you are done and ready to use Glitter!
 
-### Step 7: Setup the Project
+### Step 6: Setup the Project
 - In the project folder, open `settings.js` and change the SCREEN_NAME and NICKNAME property.
 ```
 PERSON_TWITTER_HANDLE: 'john_doe', // The Twitter handle (without @) of the person whose followers are to be followed
@@ -62,7 +62,7 @@ PERSON_NICKNAME: 'JohnDoe' // A small name or a nickname of that person
 ```
 DATABASE: 'glitter-bot-<yourname>' // App name that you inserted while creating project at Firebase
 ```
-- Remember the `glitter.json` file that you downloaded in Step 3? Copy that file to this project folder.
+- Remember the `glitter.json` file that you downloaded in Step 2? Copy that file to this project folder.
 - **And you are almost done with your bot!**
 
 ### Last Step: Upload the files to your Heroku server
@@ -75,7 +75,7 @@ $ git add .
 $ git commit -am "My Glitter bot deployed"
 $ git push heroku master
 ```
-- Do you remember where you saved those Twitter API keys in Step 5? You need them now! Login to your Heroku account on CLI, and Be sure you write this command in terminal with the API Keys:
+- Do you remember where you saved those Twitter API keys in Step 4? You need them now! Login to your Heroku account on CLI, and Be sure you write this command in terminal with the API Keys:
 ```
 $ heroku config:add CONSUMER_KEY=<your_consumer_key> CONSUMER_SECRET=<your_consumer_secret> ACCESS_TOKEN=<your_access_token> ACCESS_TOKEN_SECRET=<your_access_token_secret>
 ```
