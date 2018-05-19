@@ -44,8 +44,9 @@ var T = new Twit(config);
                           var screen_name = data.screen_name;
                           var protected_acc = data.protected;
                           var verified = data.verified;
+                          var no_of_statuses = data.statuses_count;
 
-                          if(screen_name != null && protected_acc==false && verified==false){ // Check if user's account is eligible and NOT protected
+                          if(screen_name != null && protected_acc==false && verified==false && no_of_statuses > 199){ // Check if user's account is eligible and NOT protected // NOTE: The bot follows only those who have tweeted more than a 200 times
 
                             /*=============================================>>>>>
                             = Follow him or her =
@@ -91,7 +92,7 @@ var T = new Twit(config);
 
                               }
 
-                          } else if (screen_name == null || protected_acc==true || verified==true) { // If the user is not eligible to be followed
+                          } else if (screen_name == null || protected_acc==true || verified==true || no_of_statuses < 200) { // If the user is not eligible to be followed
                             return null;
                           }
 
@@ -108,7 +109,7 @@ var T = new Twit(config);
                       timedLoop();
                   }
 
-              }, 1000*30); // After how many seconds. `1000` means 1 second.
+              }, 1000*20); // After how many seconds. `1000` means 1 second.
 
             }
 
