@@ -7,7 +7,7 @@ var settings = require('./settings'); // Find for settings.js in same folder
 
 // Connecting Firebase database
 var firebase = require("firebase-admin");
-var serviceAccount = require("./glitter");
+var serviceAccount = require("./glitter.json");
 
   // Initialize connection
   var database = "https://" + settings.DATABASE + ".firebaseio.com";

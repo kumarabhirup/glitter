@@ -18,8 +18,6 @@ Git will be useful for you as well as for Glitter bot to work efficiently.
 Install Git Command Line tools [here](https://git-scm.com/downloads).
 
 ### Step 2: Install Nodejs and NPM
-<img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/nodejs-download.jpg" alt="Download NodeJs" title="Download NodeJs" width="100%">
-
 NPM is the heart of Glitter. If you don't have that, Glitter won't work.
 Install NPM [here](https://nodejs.org/en/download/current).
 
@@ -93,6 +91,8 @@ $ heroku config:add CONSUMER_KEY=<your_consumer_key> CONSUMER_SECRET=<your_consu
 ---
 
 ### How to use Glitter bot
+
+> **Note:** Your Twitter account might get locked after few hours of starting this bot. Just unlock it by verifying email or phone number and your Twitter bot is ready to go without any interruption!
 
 **Follow people of your interest:** In `settings.js`, you have given a reference to the Twitter handle whose followers are to be followed. If yes, then just go to `Resources` tab in Heroku and switch on the `follower` dyno. That will start following the followers immediately.
 
