@@ -43,6 +43,7 @@ Install NPM [here](https://nodejs.org/en/download/current). -->
 - Once your app is created, go to the Keys and Access Token tab.
 - Copy and Paste all the 4 keys somewhere. You need those afterwards to link your bot to your Twitter account.
 - If you see only 2 Consumer keys, you need to generate Access keys too...
+- Under the same tab, find for a button which says `Change App Permissions`. Change the app permission to `Read, Write and Direct Message`.
 - After you are ready with your API keys pasted somewhere, head over to next step.
 
 ### Step 5: Create your Heroku account
@@ -101,6 +102,20 @@ $ heroku config:add CONSUMER_KEY=<your_consumer_key> CONSUMER_SECRET=<your_consu
 **Unfollow the people who followed you back:** Do this step after a month or two of you following them. This won't let them know that you unfollowed them. When you want to unfollow the ones who followed you back, just go to `Resources` tab in Heroku and switch on the `unfollow_follower` dyno. This will start unfollowing those people.
 
 **And that's it! Future Glitter updates will surely have some more automation and will make tasks easier for you :-)**
+
+### Errors that you might face
+**Bot stopped working due to Account lock:** This is a common problem faced by many users. When your account gets locked, you should unlock the account by verifying Mobile number or Email id and then change the password.
+
+**Invalid or Expired token: (Always faced after changing password)** This error comes after few hours of you changing your password. This is because when you change password, the Twitter API access keys get changed.
+**Solution:**
+- Generate the Access Tokens again in the [Twitter App manager](https://apps.twitter.com)
+- Now, Regenerate the Access token keys after you generate them again
+- If you haven't changed App Permissions to `Read, Write and Direct Message`, do that now.
+- Store the new access keys in Heroku by typing this command in Terminal:
+```
+$ heroku config:add CONSUMER_KEY=<your_consumer_key> CONSUMER_SECRET=<your_consumer_secret> ACCESS_TOKEN=<your_access_token> ACCESS_TOKEN_SECRET=<your_access_token_secret>
+```
+- Type this command: `$ heroku restart` in the Terminal.
 
 ## Terms of use
 This software is free to use. Enjoy glittering!
