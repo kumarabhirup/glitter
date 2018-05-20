@@ -32,6 +32,7 @@ Install NPM [here](https://nodejs.org/en/download/current). -->
 
 ### Step 3: Download the Glitter Project
 - Download all the files to your local machine by either cloning or directly downloading the zip file from this GitHub repo.
+- Unzip the files and change the folder name from `glitter-master` to `glitter-<yourname>`.
 - Once you downloaded the files, open `Terminal` if you are on Mac and if you use Windows, use the `Git bash` that you downloaded in Step 1.
 - Once you open Terminal, enter into the project file: `$ cd glitter`. The command depends on your current folder location. **If you don't know how to use terminal, you may need to learn small tit-bits on internet.**
 <!-- - Once you are in `glitter` folder, type this command in the Terminal: `$ npm install`. This process will download all the needed files that makes Glitter work. -->
