@@ -16,7 +16,7 @@ var serviceAccount = require("./glitter.json");
   });
 
 var T = new Twit(config);
-var stream = T.stream('user');
+var stream = T.stream('user'); // This is Deprecated (di-pri-ke-te-d) by Twitter and needs an update soon
 
 /*=============================================>>>>>
 = Phase 2 (Store the screen_name of the person who followed back) =

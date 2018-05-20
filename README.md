@@ -41,9 +41,17 @@ Install NPM [here](https://nodejs.org/en/download/current). -->
 - Go to [Twitter App Manager](https://apps.twitter.com)
 - Create your new app and let the App name be: `glitter-bot-<yourname>`
 - Once your app is created, go to the Keys and Access Token tab.
-- Copy and Paste all the 4 keys somewhere. You need those afterwards to link your bot to your Twitter account.
 - If you see only 2 Consumer keys, you need to generate Access keys too...
 - Under the same tab, find for a button which says `Change App Permissions`. Change the app permission to `Read, Write and Direct Message`.
+- From the downloaded project, enter the API keys in `config.js` file.
+```
+{
+    consumer_key: '...',
+    consumer_secret: '...',
+    access_token: '...',
+    access_token_secret: '...'
+}
+```
 - After you are ready with your API keys pasted somewhere, head over to next step.
 
 ### Step 5: Create your Heroku account
@@ -76,17 +84,12 @@ $ git add .
 $ git commit -am "My Glitter bot deployed"
 $ git push heroku master
 ```
-- Do you remember where you saved those Twitter API keys in Step 4? You need them now! Login to your Heroku account on CLI, and Be sure you write this command in terminal with the API Keys:
-```
-$ heroku config:add CONSUMER_KEY=<your_consumer_key> CONSUMER_SECRET=<your_consumer_secret> ACCESS_TOKEN=<your_access_token> ACCESS_TOKEN_SECRET=<your_access_token_secret>
-```
 - Once you push all your files, go to `resources` tab in Heroku Dashboard, and you should see something like this:
 
 <img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/heroku.jpg" alt="Heroku Resources" title="Heroku Resources" width="100%">
 
 - As you see in above image, switch on the `streamer` dyno to make your streamer work 24x7
 - To check if you got any errors, open Terminal and type `heroku logs`. If you see good things, congratulations! Streamer is working...
-- Most of the times, you might find an error that says `glitter.json module not found`. This is a serious issue to work with. Will come up with the solution soon.
 - All this was just a setup. **THE REAL STUFF HASN'T YET STARTED!**
 
 ---
@@ -108,12 +111,17 @@ $ heroku config:add CONSUMER_KEY=<your_consumer_key> CONSUMER_SECRET=<your_consu
 
 **Invalid or Expired token: (Always faced after changing password)** This error comes after few hours of you changing your password. This is because when you change password, the Twitter API access keys get changed.
 **Solution:**
-- Generate the Access Tokens again in the [Twitter App manager](https://apps.twitter.com)
+- Generate the Consumer keys and Access Tokens again in the [Twitter App manager](https://apps.twitter.com)
 - Now, Regenerate the Access token keys after you generate them again
 - If you haven't changed App Permissions to `Read, Write and Direct Message`, do that now.
-- Store the new access keys in Heroku by typing this command in Terminal:
+- From the downloaded project, enter the NEW API keys in `config.js` file.
 ```
-$ heroku config:add CONSUMER_KEY=<your_consumer_key> CONSUMER_SECRET=<your_consumer_secret> ACCESS_TOKEN=<your_access_token> ACCESS_TOKEN_SECRET=<your_access_token_secret>
+{
+    consumer_key: '...',
+    consumer_secret: '...',
+    access_token: '...',
+    access_token_secret: '...'
+}
 ```
 - Type this command: `$ heroku restart` in the Terminal.
 
