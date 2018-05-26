@@ -3,15 +3,19 @@ The **only bot** that could automate your Twitter Account at its best!
 
 # Features
 - Auto engager
+- Follower Churner
+- Troller bot **(COMING SOON)**
+
+### What is Auto Engager?
 This bot is capable to handle the circumstances where you get busy. When people mention you or DM you, bot can automatically reply of your absence right now.
 **NOT JUST THAT!** This bot periodically publishes Tweets based on the Twitter Trends. So, you don't miss any trend that had the capability to bring you good followers.
-- Follower Churner
+
+### What is Follower Churner?
 Simply saying, this Twitter bot follows Thousands of people of your interests at once. The ones who don't follow you back can be unfollowed after some days. And the ones who have followed you back can also be unfollowed, but after 30 days.
 
 This bot can work 24x7 for you being a watchdog about who followed back and who you followed. A NoSQL database is used in backend to retrieve and use all the data about whom you followed and whom you haven't.
 
 This bot also takes some measures to prevent following false accounts. This software has been already tried many times. 1 out of every 5 people have followed back. That means, when this bot follows 5000 people, who have a fair chance of getting 1000 followers at once. **You can unfollow those exact people after some days. Not manually, bot does it for you!**
-- Troller bot **(COMING SOON)**
 
 # Documentation
 <img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/how-to-glitter.jpg" alt="How to use Glitter" title="How to use Glitter" width="100%">
