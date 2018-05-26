@@ -18,7 +18,7 @@ var serviceAccount = require("./glitter.json");
 var T = new Twit(config);
 
 /*=============================================>>>>>
-= Phase 1 (Follow the eligible users and store their screen_name in Firebase) =
+= Phase 1 for FOLLOWER_CHURN (Follow the eligible users and store their screen_name in Firebase) =
 ===============================================>>>>>*/
   // Pick a celebrity and grab all the Follower IDs
   T.get('followers/ids', { screen_name: settings.PERSON_TWITTER_HANDLE, count:'5000', cursor:'-1' },  function (err, data, response) {

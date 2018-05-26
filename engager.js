@@ -16,9 +16,11 @@ var serviceAccount = require("./glitter.json");
   });
 
 var T = new Twit(config);
-var stream = T.stream('user'); // This is Deprecated (di-pri-ke-te-d) by Twitter and needs an update soon
+var streamUser = T.stream('user'); // This is Deprecated (di-pri-ke-te-d) by Twitter and needs an update soon
+var streamStatuses = T.stream('statuses/filter', { track: [settings.YOUR_NAME, settings.YOUR_TWITTER_HANDLE] });
 
-stream.on('follow', function (eventMsg) {
+// Fires when a User follows the authenticated account
+streamUser.on('follow', function (eventMsg) {
 
   var who_followed  = eventMsg.source.id;
   var who_followed_sname  = eventMsg.source.screen_name;
@@ -29,8 +31,8 @@ stream.on('follow', function (eventMsg) {
   // Send Automated Direct Message
   if(settings.FOLLOW_ENGAGER_STATUS_DM == 'ON'){
 
-    var direct_message = settings.FOLLOW_THANK_U_NOTE_GREET + " " + who_followed_name + "! " + settings.FOLLOW_THANK_U_NOTE_MSG;
-    T.post('direct_messages/new', { screen_name: who_followed_sname, text: direct_message },  function (err, data, response) {
+    var direct_message_when_followed = settings.FOLLOW_THANK_U_NOTE_GREET + " " + who_followed_name + "! " + settings.FOLLOW_THANK_U_NOTE_MSG;
+    T.post('direct_messages/new', { screen_name: who_followed_sname, text: direct_message_when_followed },  function (err, data, response) {
       if(!err){
         console.log("Follow Thank you note sent successfully to " + who_followed_name + ".");
       } else{
@@ -57,5 +59,42 @@ stream.on('follow', function (eventMsg) {
   } else{
     console.log(null);
   }
+
+});
+
+
+// Fires when a some User mentions your name or twitter handle in a Tweet
+streamStatuses.on('tweet', function (tweet) {
+
+    var tweet_id = tweet.id_str;
+    var mentioner_name = tweet.user.name;
+    var mentioner_sname = tweet.user.screen_name;
+
+    // Tweet Reply when mentioned
+    if(settings.REPLY_ENGAGER_STATUS == 'ON'){
+
+      // Reply by Tweet
+      var reply = settings.REPLY_M_NOT_THERE_TWEET_GREET + " " + mentioner_name + " (@" + mentioner_sname + ")..." + " " + settings.REPLY_M_NOT_THERE_TWEET_MSG;
+      T.post('statuses/update', { status: reply, in_reply_to_status_id: tweet_id }, function(err, data, response) {
+        if(!err){
+          console.log("I'm not there Tweet sent successfully to " + mentioner_name + ".");
+        } else{
+          console.log(err);
+        }
+      });
+
+      // Reply by DM (Gives out error if the Mentioner doesn't follow you)
+      var direct_message_when_mentioned = settings.REPLY_M_NOT_THERE_DM_GREET + " " + mentioner_name + "! " + settings.REPLY_M_NOT_THERE_DM_MSG;
+      T.post('direct_messages/new', { screen_name: mentioner_sname, text: direct_message_when_mentioned },  function (err, data, response) {
+        if(!err){
+          console.log("I'm not there DM reply sent successfully to " + mentioner_name + ".");
+        } else{
+          console.log(err);
+        }
+      });
+
+    } else{
+      console.log(null);
+    }
 
 });

@@ -19,7 +19,7 @@ var serviceAccount = require("./glitter.json");
 var T = new Twit(config);
 
 /*=============================================>>>>>
-= Phase 4 (Unfollow the screen_names who have followed you back) =
+= Phase 4 for FOLLOWER_CHURN (Unfollow the screen_names who have followed you back) =
 ===============================================>>>>>*/
   // Get the screen_names in `followbacks` table
   firebase.database().ref("followbacks/" + settings.PERSON_TWITTER_HANDLE).on("value", function(snapshot) {
