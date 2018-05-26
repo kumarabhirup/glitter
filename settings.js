@@ -19,6 +19,11 @@ module.exports = Object.freeze({
   FOLLOW_THANK_U_TWEET_GREET: "Hey,", // Result: Hey, @<screen-name-of-person-who-followed>...
   FOLLOW_THANK_U_TWEET_MSG: "Thanks for following me on Twitter.",
 
+  // Engager bot for replying when one sends a Direct Message
+  DM_BACK_ENGAGER_STATUS: 'OFF', // Keep it OFF if you don't want this bot to automatically reply someone DM you. Else, turn it ON.
+  DM_BACK_GREET: "Hi,", // Result: Hey, <name-of-person-who-messaged>!
+  DM_BACK_MSG: "I'm not on Twitter right now. I'll be back soon for a good reply. :-)",
+
   // Engager bot for replying people who mentioned you
   REPLY_ENGAGER_STATUS: 'OFF', // Keep it OFF if you don't want this bot to automatically Mention-Tweet someone who followed you. Else, turn it ON.
 

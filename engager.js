@@ -98,3 +98,34 @@ streamStatuses.on('tweet', function (tweet) {
     }
 
 });
+
+
+// Whenever someone sends a direct message, this event is Fired.
+streamUser.on('direct_message', function (directMsg) {
+
+  var sender_sname = directMsg.direct_message.sender.screen_name;
+  var sender_name = directMsg.direct_message.sender.name;
+
+  if(settings.DM_BACK_ENGAGER_STATUS == 'ON'){
+
+    // Reply by DM (Gives out error if the Mentioner doesn't follow you)
+    var direct_message_when_dm = settings.DM_BACK_GREET + " " + sender_name + "! " + settings.DM_BACK_MSG;
+    T.post('direct_messages/new', { screen_name: sender_sname, text: direct_message_when_dm },  function (err, data, response) {
+      if(!err){
+
+        if(sender_sname != settings.YOUR_TWITTER_HANDLE){ // To stop infinite logging
+            console.log("I'm not there DM for DM reply sent successfully to " + sender_name + ".");
+        } else {
+          // Nothing
+        }
+
+      } else{
+        console.log(err);
+      }
+    });
+
+  } else{
+    console.log(null);
+  }
+
+});
