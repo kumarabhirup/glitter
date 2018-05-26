@@ -1,12 +1,17 @@
 # Glitter!
-A Twitter bot that brings you followers!
+The **only bot** that could automate your Twitter Account at its best!
 
-# How does it work?
-Simply saying, this Twitter bot follows Thousands of people of your interests at once. The ones who don't follow you back can be unfollowed after some days. And the ones who have followed you back can also be unfollowed, but after 30 days.
+# Features
+- Auto engager
+  This bot is capable to handle the circumstances where you get busy. When people mention you or DM you, bot can automatically reply of your absence right now.
+  **NOT JUST THAT!** This bot periodically publishes Tweets based on the Twitter Trends. So, you don't miss any trend that had the capability to bring you good followers.
+- Follower Churner
+  Simply saying, this Twitter bot follows Thousands of people of your interests at once. The ones who don't follow you back can be unfollowed after some days. And the ones who have followed you back can also be unfollowed, but after 30 days.
 
-This bot can work 24x7 for you being a watchdog about who followed back and who you followed. A NoSQL database is used in backend to retrieve and use all the data about whom you followed and whom you haven't.
+  This bot can work 24x7 for you being a watchdog about who followed back and who you followed. A NoSQL database is used in backend to retrieve and use all the data about whom you followed and whom you haven't.
 
-This bot also takes some measures to prevent following false accounts. This software has been already tried many times. 1 out of every 5 people have followed back. That means, when this bot follows 5000 people, who have a fair chance of getting 1000 followers at once. **You can unfollow those exact people after some days. Not manually, bot does it for you!**
+  This bot also takes some measures to prevent following false accounts. This software has been already tried many times. 1 out of every 5 people have followed back. That means, when this bot follows 5000 people, who have a fair chance of getting 1000 followers at once. **You can unfollow those exact people after some days. Not manually, bot does it for you!**
+- Troller bot **(COMING SOON)**
 
 # Documentation
 <img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/how-to-glitter.jpg" alt="How to use Glitter" title="How to use Glitter" width="100%">
@@ -63,7 +68,12 @@ Install NPM [here](https://nodejs.org/en/download/current). -->
 - Then it will ask you email and password, and when you are logged in, you are done and ready to use Glitter!
 
 ### Step 6: Setup the Project
-- In the project folder, open `settings.js` and change the SCREEN_NAME and NICKNAME property.
+- In the project folder, open `settings.js` and change the YOUR_NAME and YOUR_TWITTER_HANDLE property.
+```
+YOUR_NAME: 'my name goes here', // Eg. Steve Jobs
+YOUR_TWITTER_HANDLE: 'my twitter handle goes here', // Your Twitter handle (without @)
+```
+- In `settings.js`, change the SCREEN_NAME and NICKNAME property. That needs to be of the person whose followers are to followed in Follower Churning process.
 ```
 PERSON_TWITTER_HANDLE: 'john_doe', // The Twitter handle (without @) of the person whose followers are to be followed
 PERSON_NICKNAME: 'JohnDoe' // A small name or a nickname of that person
@@ -72,6 +82,7 @@ PERSON_NICKNAME: 'JohnDoe' // A small name or a nickname of that person
 ```
 DATABASE: 'glitter-bot-<yourname>' // App name that you inserted while creating project at Firebase
 ```
+- If you are using the `master` branched project, you must be seeing a `settings.js` file with many more settings. **LEAVE THEM ALONE**. I'm building documentation to tell what those settings do.
 - Remember the `glitter.json` file that you downloaded in Step 2? Copy that file to this project folder.
 - **And you are almost done with your bot!**
 

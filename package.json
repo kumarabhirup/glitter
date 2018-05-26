@@ -4,7 +4,7 @@
   "description": "A bot that brings you followers.",
   "main": "glitter.js",
   "scripts": {
-    "start": "node streamer.js",
+    "start": "node engager.js",
     "test": "node test.js"
   },
   "repository": {
