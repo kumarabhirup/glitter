@@ -3,14 +3,14 @@ The **only bot** that could automate your Twitter Account at its best!
 
 # Features
 - Auto engager
-  This bot is capable to handle the circumstances where you get busy. When people mention you or DM you, bot can automatically reply of your absence right now.
-  **NOT JUST THAT!** This bot periodically publishes Tweets based on the Twitter Trends. So, you don't miss any trend that had the capability to bring you good followers.
+This bot is capable to handle the circumstances where you get busy. When people mention you or DM you, bot can automatically reply of your absence right now.
+**NOT JUST THAT!** This bot periodically publishes Tweets based on the Twitter Trends. So, you don't miss any trend that had the capability to bring you good followers.
 - Follower Churner
-  Simply saying, this Twitter bot follows Thousands of people of your interests at once. The ones who don't follow you back can be unfollowed after some days. And the ones who have followed you back can also be unfollowed, but after 30 days.
+Simply saying, this Twitter bot follows Thousands of people of your interests at once. The ones who don't follow you back can be unfollowed after some days. And the ones who have followed you back can also be unfollowed, but after 30 days.
 
-  This bot can work 24x7 for you being a watchdog about who followed back and who you followed. A NoSQL database is used in backend to retrieve and use all the data about whom you followed and whom you haven't.
+This bot can work 24x7 for you being a watchdog about who followed back and who you followed. A NoSQL database is used in backend to retrieve and use all the data about whom you followed and whom you haven't.
 
-  This bot also takes some measures to prevent following false accounts. This software has been already tried many times. 1 out of every 5 people have followed back. That means, when this bot follows 5000 people, who have a fair chance of getting 1000 followers at once. **You can unfollow those exact people after some days. Not manually, bot does it for you!**
+This bot also takes some measures to prevent following false accounts. This software has been already tried many times. 1 out of every 5 people have followed back. That means, when this bot follows 5000 people, who have a fair chance of getting 1000 followers at once. **You can unfollow those exact people after some days. Not manually, bot does it for you!**
 - Troller bot **(COMING SOON)**
 
 # Documentation
