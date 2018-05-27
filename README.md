@@ -20,7 +20,7 @@ This bot also takes some measures to prevent following false accounts. This soft
 # Documentation
 <img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/how-to-glitter.jpg" alt="How to use Glitter" title="How to use Glitter" width="100%">
 
-## Steps to follow
+## Installation
 
 ### Step 1: Install Git
 Git will be useful for you as well as for Glitter bot to work efficiently.
@@ -40,7 +40,7 @@ Install NPM [here](https://nodejs.org/en/download/current). -->
 <img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/firebase-homepage.jpg" alt="Firebase" title="Firebase" width="100%">
 
 ### Step 3: Download the Glitter Project
-- Download all the files to your local machine by either cloning or directly downloading the zip file from this GitHub repo.
+- Download all the files to your local machine by directly downloading the zip file from this GitHub repo.
 - Unzip the files and change the folder name from `glitter-master` to `glitter-<yourname>`.
 - Once you downloaded the files, open `Terminal` if you are on Mac and if you use Windows, use the `Git bash` that you downloaded in Step 1.
 - Once you open Terminal, enter into the project file: `$ cd glitter`. The command depends on your current folder location. **If you don't know how to use terminal, you may need to learn small tit-bits on internet.**
@@ -53,7 +53,7 @@ Install NPM [here](https://nodejs.org/en/download/current). -->
 - Once your app is created, go to the Keys and Access Token tab.
 - If you see only 2 Consumer keys, you need to generate Access keys too...
 - Under the same tab, find for a button which says `Change App Permissions`. Change the app permission to `Read, Write and Direct Message`.
-- From the downloaded project, enter the API keys in `config.js` file.
+- From the downloaded project, enter the API keys in `src/config.js` file.
 ```
 {
     consumer_key: '...',
@@ -62,7 +62,7 @@ Install NPM [here](https://nodejs.org/en/download/current). -->
     access_token_secret: '...'
 }
 ```
-- After you are ready with your API keys pasted somewhere, head over to next step.
+- After you are ready with your API keys pasted in the `config.js`, head over to next step.
 
 ### Step 5: Create your Heroku account
 - Log on to [heroku.com](https://www.heroku.com)
@@ -72,22 +72,22 @@ Install NPM [here](https://nodejs.org/en/download/current). -->
 - Then it will ask you email and password, and when you are logged in, you are done and ready to use Glitter!
 
 ### Step 6: Setup the Project
-- In the project folder, open `settings.js` and change the YOUR_NAME and YOUR_TWITTER_HANDLE property.
+- In the `src` folder, open `settings.js` and change the YOUR_NAME and YOUR_TWITTER_HANDLE property.
 ```
 YOUR_NAME: 'my name goes here', // Eg. Steve Jobs
 YOUR_TWITTER_HANDLE: 'my twitter handle goes here', // Your Twitter handle (without @)
 ```
-- In `settings.js`, change the SCREEN_NAME and NICKNAME property. That needs to be of the person whose followers are to followed in Follower Churning process.
+- In `settings.js` (Same file), change the SCREEN_NAME and NICKNAME property. That needs to be of the person whose followers are to followed in Follower Churning process.
 ```
 PERSON_TWITTER_HANDLE: 'john_doe', // The Twitter handle (without @) of the person whose followers are to be followed
 PERSON_NICKNAME: 'JohnDoe' // A small name or a nickname of that person
 ```
-- In `settings.js` change the `DATABASE` property to the app name that you inserted in Firebase. In your case, it might be `glitter-bot-<yourname>`.
+- In `src/settings.js` change the `DATABASE` property to the app name that you inserted in Firebase. In your case, it might be `glitter-bot-<yourname>`.
 ```
 DATABASE: 'glitter-bot-<yourname>' // App name that you inserted while creating project at Firebase
 ```
 - If you are using the `master` branched project, you must be seeing a `settings.js` file with many more settings. **LEAVE THEM ALONE**. I'm building documentation to tell what those settings do.
-- Remember the `glitter.json` file that you downloaded in Step 2? Copy that file to this project folder.
+- Remember the `glitter.json` file that you downloaded in Step 2? Copy and Paste that file to the root of this project folder.
 - **And you are almost done with your bot!**
 
 ### Last Step: Upload the files to your Heroku server
@@ -104,13 +104,13 @@ $ git push heroku master
 
 <img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/heroku.jpg" alt="Heroku Resources" title="Heroku Resources" width="100%">
 
-- As you see in above image, switch on the `streamer` dyno to make your streamer work 24x7
+- As you see in above image, switch on the `streamer` and `engager` dyno to make your streamer and engager bot work 24x7
 - To check if you got any errors, open Terminal and type `heroku logs`. If you see good things, congratulations! Streamer is working...
 - All this was just a setup. **THE REAL STUFF HASN'T YET STARTED!**
 
 ---
 
-### How to use Glitter bot
+## How to use Glitter bot
 
 > **Note:** Your Twitter account might get locked after few hours of starting this bot. Just unlock it by verifying email or phone number and your Twitter bot is ready to go without any interruption!
 
@@ -120,9 +120,13 @@ $ git push heroku master
 
 **Unfollow the people who followed you back:** Do this step after a month or two of you following them. This won't let them know that you unfollowed them. When you want to unfollow the ones who followed you back, just go to `Resources` tab in Heroku and switch on the `unfollow_follower` dyno. This will start unfollowing those people.
 
+> **AND MUCH MORE!** _Right now, you can only churn followers._ An update will be rolled out with all new features. Then you can not only churn, but also make your bot automatically engage with people on Twitter!
+
 **And that's it! Future Glitter updates will surely have some more automation and will make tasks easier for you :-)**
 
-### Errors that you might face
+---
+
+## Errors that you might face
 **Bot stopped working due to Account lock:** This is a common problem faced by many users. When your account gets locked, you should unlock the account by verifying Mobile number or Email id and then change the password.
 
 **Invalid or Expired token: (Always faced after changing password)** This error comes after few hours of you changing your password. This is because when you change password, the Twitter API access keys get changed.
