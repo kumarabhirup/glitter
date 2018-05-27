@@ -17,19 +17,50 @@ var serviceAccount = require("../../glitter.json"); // To connect Glitter Bot to
 
 var T = new Twit(config);
 var streamUser = T.stream('user'); // This is Deprecated (di-pri-ke-te-d) by Twitter and needs an update soon
-var streamStatuses = T.stream('statuses/filter', { track: [settings.YOUR_NAME, settings.YOUR_TWITTER_HANDLE] });
+var streamMentions = T.stream('statuses/filter', { track: [settings.YOUR_NAME, settings.YOUR_TWITTER_HANDLE] });
+var streamGlitter = T.stream('statuses/filter', { track: ['glitterbot', 'glitter bot'] });
 
 // Tweet that YOU USE Glitter bot (PROMOTIONAL)
-function iUseThis(){
-  var tweet = "Yo! I use #GlitterBot to make my Twitter Account interesting. When will you? https://github.com/KumarAbhirup/glitter";
-  T.post('statuses/update', { status: tweet }, function(err, data, response) {
-    if(!err){
-      console.log("I use #GlitterBot Promotional Tweet published."); // You should promote Glitter Bot if you use it
-    } else{
-      console.log(err);
-    }
+if(settings.PROMOTION == 'ON'){
+
+  // Tweet that user uses Glitter Bot
+  function iUseThis(){
+    var tweet = "Yo! I use #GlitterBot to make my Twitter Account interesting. When will you? https://github.com/KumarAbhirup/glitter";
+    T.post('statuses/update', { status: tweet }, function(err, data, response) {
+      if(!err){
+        console.log("I use #GlitterBot Promotional Tweet published."); // You should promote Glitter Bot if you use it
+      } else{
+        console.log(err);
+      }
+    });
+  } iUseThis();
+
+
+  // Fires when a some User writes about Glitter Bot
+  streamGlitter.on('tweet', function (tweet) {
+
+      var tweet_id = tweet.id_str;
+      var tweeter_name = tweet.user.name;
+      var tweeter_sname = tweet.user.screen_name;
+
+      if(tweeter_sname != settings.YOUR_TWITTER_HANDLE){
+        // Retweet the Tweet
+        T.post('statuses/retweet/:id', { id: tweet_id }, function(err, data, response) {
+          if(!err){
+            console.log("The Glitter Bot tweet of " + tweeter_name + " is retweeted.");
+          } else{
+            console.log(err);
+          }
+        });
+      } else{
+        console.log("Can't retweet your own tweet.");
+      }
+
   });
-} iUseThis();
+
+} else{
+  console.log("You should Promote Glitter Bot if you use it. :-)");
+}
 
 // Fires when a User follows the authenticated account
 streamUser.on('follow', function (eventMsg) {
@@ -76,7 +107,7 @@ streamUser.on('follow', function (eventMsg) {
 
 
 // Fires when a some User mentions your name or twitter handle in a Tweet
-streamStatuses.on('tweet', function (tweet) {
+streamMentions.on('tweet', function (tweet) {
 
     var tweet_id = tweet.id_str;
     var mentioner_name = tweet.user.name;

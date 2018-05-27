@@ -4,8 +4,8 @@
   "description": "A bot that brings you followers.",
   "main": "glitter.js",
   "scripts": {
-    "start": "node engager.js",
-    "test": "node test.js"
+    "start": "node src/untouchables/engager.js",
+    "test": "node src/tests/test.js"
   },
   "repository": {
     "type": "git",
@@ -13,7 +13,9 @@
   },
   "keywords": [
     "twitter",
-    "followers"
+    "heroku",
+    "firebase",
+    "bot"
   ],
   "author": "Kumar Abhirup",
   "license": "ISC",
@@ -25,7 +27,6 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "firebase-admin": "^5.12.1",
-    "mongodb": "^3.1.0-beta4",
     "twit": "^2.2.9",
     "json-loader": "^0.5.4"
   }
