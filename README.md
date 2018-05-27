@@ -3,6 +3,7 @@ The **only bot** that could automate your Twitter Account at its best!
 
 # Features
 - Auto engager
+- Trend Tweet(er)
 - Follower Churner
 - Troller bot **(COMING SOON)**
 
@@ -143,7 +144,13 @@ $ git push heroku master
     access_token_secret: '...'
 }
 ```
-- Type this command: `$ heroku restart` in the Terminal.
+- After you changed all the tokens and keys, do this in terminal:
+```
+$ git add .
+$ git commit -m "Config keys changed"
+$ git push heroku master
+```
+- When new keys are uploaded, Type this command: `$ heroku restart` in the Terminal.
 
 ## Terms of use
 This software is free to use. Enjoy glittering!

@@ -1,4 +1,4 @@
-console.log("This is the Engager bot.");
+console.log("The engager bot is starting...");
 
 var Twit = require('twit');
 var config = require('../config'); // Find for config.js in the parent folder

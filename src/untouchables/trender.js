@@ -1,4 +1,4 @@
-console.log("Test bot should only be used for DEVELOPMENT PURPOSES...");
+console.log("The trend tweeter bot is starting...");
 
 var Twit = require('twit');
 var config = require('../config'); // Find for config.js in the parent folder
@@ -17,6 +17,4 @@ var serviceAccount = require("../../glitter.json"); // To connect Glitter Bot to
 
 var T = new Twit(config);
 
-T.get('account/verify_credentials',  function (err, data, response) {
-  console.log(data);
-});
+// Find for Trends in your location
