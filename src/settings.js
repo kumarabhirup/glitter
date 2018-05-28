@@ -36,6 +36,17 @@ module.exports = Object.freeze({
     REPLY_M_NOT_THERE_DM_GREET: "Hey,", // Result: Hey, @<screen-name-of-person-who-mentioned>...
     REPLY_M_NOT_THERE_DM_MSG: "You just mentioned me in your Tweet yea? Will reply you soon. :-)",
 
+  // Tweet the Everyday trends
+    EVERYDAY_TRENDER: 'ON', // Keep it OFF if you don't want EveryDay Tweets.
+      // Everyday Hashtags
+      MONDAY: "#MondayMotivation #MondayMorning #MusicMonday",
+      TUESDAY: "#TuesdayMotivation #TuesdayThoughts",
+      WEDNESDAY: "#WednesdayWisdom #WonderfulWednesday",
+      THURSDAY: "#ThrowbackThursday #ThankfulThursday",
+      FRIDAY: "#FridayFeeling #FollowFriday",
+      SATURDAY: "#SaturdaySpirit #Saturday",
+      SUNDAY: "#SundayFunday",
+
   // PROMOTION
   PROMOTION: 'ON'
 

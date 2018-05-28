@@ -1,4 +1,4 @@
-console.log("The trend tweeter bot is starting...");
+console.log("The trend tweeter bot is starting... (UNDER DEVELOPMENT)");
 
 var Twit = require('twit');
 var config = require('../config'); // Find for config.js in the parent folder

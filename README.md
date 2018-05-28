@@ -3,13 +3,16 @@ The **only bot** that could automate your Twitter Account at its best!
 
 # Features
 - Auto engager
-- Trend Tweet(er)
+- 'Everyday Trend' Tweeter
 - Follower Churner
 - Troller bot **(COMING SOON)**
 
 ### What is Auto Engager?
 This bot is capable to handle the circumstances where you get busy. When people mention you or DM you, bot can automatically reply of your absence right now.
 **NOT JUST THAT!** This bot periodically publishes Tweets based on the Twitter Trends. So, you don't miss any trend that had the capability to bring you good followers.
+
+### What is Everyday Trend Tweeter?
+Have you seen a **#MondayMotivation** or a **#FridayFeeling** tweet with a random proverb above? You might be doing it by copying proverbs and pasting it in twitter composer. But now, _Bot does it for you everyday!_
 
 ### What is Follower Churner?
 Simply saying, this Twitter bot follows Thousands of people of your interests at once. The ones who don't follow you back can be unfollowed after some days. And the ones who have followed you back can also be unfollowed, but after 30 days.
