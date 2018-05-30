@@ -312,3 +312,69 @@ if(settings.EVERYDAY_TRENDER == 'ON'){
   } setInterval(everydayTrends, 1000*60*60*24); // Tweet the Everyday Trends after every 24 hours (1000*60*60*24)
 
 }
+
+
+// Get the User ID from screen_names
+if(settings.TROLL_BOT == 'ON'){
+  T.get('users/lookup', { screen_name: settings.TO_BE_TROLLED },  function (err, data, response) {
+
+    var arrayOfToBeTrolled = [];
+
+    var howManyToTroll = data.length;
+    for (var i = 0; i < howManyToTroll; i++) {
+      var object = data[i];
+      var id = object.id_str; // Push the Ids of the SCREEN_NAMES in an array
+      arrayOfToBeTrolled.push(id);
+    }
+
+    console.log(arrayOfToBeTrolled);
+
+    var streamPeople = T.stream('statuses/filter', { follow: arrayOfToBeTrolled }); // Get the list of IDs here
+
+    streamPeople.on('tweet', function (tweet) { // Whenever, a person from TO_BE_TROLLED list tweets.
+
+      // Definitions
+      var tweet_id = tweet.id_str;
+      var tweet_user_name = tweet.user.name;
+      var tweet_user_sname = tweet.user.screen_name;
+
+      // To get the difference between replies and tweets.
+      var in_reply_to_sname = tweet.in_reply_to_screen_name;
+      var in_reply_to_status_id_str = tweet.in_reply_to_status_id_str;
+
+      console.log(tweet_user_name + " is caught on Stream!");
+
+      // A function which checks whether there is the specified object/key in the array
+      function arrayContains(array, key) {
+          for (var i = 0; i < array.length; i++) {
+              if (array[i] === key) {
+                  return true;
+              }
+          }
+          return false;
+      }
+
+      if(in_reply_to_sname != null && in_reply_to_status_id_str != null && !arrayContains(settings.TO_BE_TROLLED, tweet_user_sname)){ // Do nothing if Tweet is a reply and is not composed by any of the member in TO_BE_TROLLED list.
+        return null;
+      } else { // Troll!
+
+        if(settings.TROLLS.length > 1){ // When more than one troll is specified
+          var indexOfTrolledName = settings.TO_BE_TROLLED.findIndex(x => x==tweet_user_sname); // Get the index of the person who is to be trolled
+          var troll = "@" + tweet_user_sname + " " + settings.TROLLS[indexOfTrolledName]; // Troll the user with relevant troll message
+        } else{ // One troll for all
+          var troll = "@" + tweet_user_sname + " " + settings.TROLLS[0];
+        }
+
+        T.post('statuses/update', { status: troll, in_reply_to_status_id: tweet_id }, function(err, data, response) {
+          if(!err){
+            console.log("Troll reply: \n" + troll + "\n sent to " + tweet_user_name + "!");
+          } else{
+            console.log(err);
+          }
+        });
+      }
+
+    });
+
+  });
+}

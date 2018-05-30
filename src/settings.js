@@ -47,6 +47,22 @@ module.exports = Object.freeze({
       SATURDAY: "#SaturdaySpirit #Saturday",
       SUNDAY: "#SundayFunday",
 
+  // Troll Bot!
+    TROLL_BOT: 'OFF',
+    TO_BE_TROLLED: [ // NOTE: CASE SENSITIVE | Comma separated list of screen_names (without @)
+      'realDonaldTrump',
+      'elonmusk'
+    ],
+    TROLLS: [
+      'You are dumb old man', // For the first screen_name in the TO_BE_TROLLED list.
+      'You are a dreamy, techy, crazy joker of the universe!', // For the second screen_name in the TO_BE_TROLLED list.
+    ],
+    /*
+    TROLLS: [
+     'You are fake, dumb, nerd shit!' // NOTE: IF YOU SPECIFY ONLY ONE TROLL, IT BECOMES A TROLL FOR ALL THE SCREEN_NAMES SPECIFIED IN `TO_BE_TROLLED`.
+    ]
+    */
+
   // PROMOTION
   PROMOTION: 'ON'
 
