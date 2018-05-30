@@ -74,7 +74,7 @@ streamUser.on('follow', function (eventMsg) {
   console.log(who_followed_name + " followed.");
 
   // Send Automated Direct Message
-  if(settings.FOLLOW_ENGAGER_STATUS_DM == 'ON'){
+  if(settings.FOLLOW_ENGAGER_STATUS_DM == 'ON' && who_followed_sname != settings.YOUR_TWITTER_HANDLE){
 
     var direct_message_when_followed = settings.FOLLOW_THANK_U_NOTE_GREET + " " + who_followed_name + "! " + settings.FOLLOW_THANK_U_NOTE_MSG;
     T.post('direct_messages/new', { screen_name: who_followed_sname, text: direct_message_when_followed },  function (err, data, response) {
@@ -90,7 +90,7 @@ streamUser.on('follow', function (eventMsg) {
   }
 
   // Send Automated Tweet
-  if(settings.FOLLOW_ENGAGER_STATUS_TWEET == 'ON'){
+  if(settings.FOLLOW_ENGAGER_STATUS_TWEET == 'ON' && who_followed_sname != settings.YOUR_TWITTER_HANDLE){
 
     var tweet = settings.FOLLOW_THANK_U_TWEET_GREET + " " + who_followed_name + " (@" + who_followed_sname + ")..." + " " + settings.FOLLOW_THANK_U_TWEET_MSG;
     T.post('statuses/update', { status: tweet }, function(err, data, response) {
@@ -116,7 +116,7 @@ streamMentions.on('tweet', function (tweet) {
     var mentioner_sname = tweet.user.screen_name;
 
     // Tweet Reply when mentioned
-    if(settings.REPLY_ENGAGER_STATUS == 'ON'){
+    if(settings.REPLY_ENGAGER_STATUS == 'ON' && mentioner_sname != settings.YOUR_TWITTER_HANDLE){
 
       // Reply by Tweet
       var reply = settings.REPLY_M_NOT_THERE_TWEET_GREET + " " + mentioner_name + " (@" + mentioner_sname + ")..." + " " + settings.REPLY_M_NOT_THERE_TWEET_MSG;
@@ -151,7 +151,7 @@ streamUser.on('direct_message', function (directMsg) {
   var sender_sname = directMsg.direct_message.sender.screen_name;
   var sender_name = directMsg.direct_message.sender.name;
 
-  if(settings.DM_BACK_ENGAGER_STATUS == 'ON'){
+  if(settings.DM_BACK_ENGAGER_STATUS == 'ON' && sender_sname != settings.YOUR_TWITTER_HANDLE){
 
     // Reply by DM (Gives out error if the Mentioner doesn't follow you)
     var direct_message_when_dm = settings.DM_BACK_GREET + " " + sender_name + "! " + settings.DM_BACK_MSG;
