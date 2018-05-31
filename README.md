@@ -5,7 +5,7 @@ The **only bot** that could automate your Twitter Account at its best!
 - Auto engager
 - 'Everyday Trend' Tweeter
 - Follower Churner
-- Troller bot **(COMING SOON)**
+- Troller bot
 
 ### What is Auto Engager?
 This bot is capable to handle the circumstances where you get busy. When people mention you or DM you, bot can automatically reply of your absence right now.
@@ -108,8 +108,8 @@ $ git push heroku master
 
 <img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/heroku.jpg" alt="Heroku Resources" title="Heroku Resources" width="100%">
 
-- As you see in above image, switch on the `streamer` and `engager` dyno to make your streamer and engager bot work 24x7
-- To check if you got any errors, open Terminal and type `heroku logs`. If you see good things, congratulations! Streamer is working...
+- As you see in above image, switch on the `engager` dyno to make your engager bot work 24x7
+- To check if you got any errors, open Terminal and type `heroku logs`. If you see good things, congratulations! Engager is working...
 - All this was just a setup. **THE REAL STUFF HASN'T YET STARTED!**
 
 ---
