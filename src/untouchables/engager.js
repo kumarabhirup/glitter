@@ -22,12 +22,46 @@ var streamUser = T.stream('user'); // This is Deprecated (di-pri-ke-te-d) by Twi
 var streamMentions = T.stream('statuses/filter', { track: [settings.YOUR_NAME, settings.YOUR_TWITTER_HANDLE] });
 var streamGlitter = T.stream('statuses/filter', { track: ['glitterbot', 'glitter bot'] });
 
+/*=============================================>>>>>
+= Phase 2 for FOLLOWER_CHURN (Store the screen_name of the person who followed back) =
+===============================================>>>>>*/
+  // Listen the `follow` event
+  console.log("Streamer bot is starting...");
+  streamUser.on('follow', function (eventMsg) {
+
+    var screen_name = eventMsg.source.screen_name; // screen_name of the person who followed
+
+    // Check if the screen_name exists in Firebase Database
+    firebase.database().ref("followed_followers_of/" + settings.PERSON_TWITTER_HANDLE).child(screen_name).on("value", function(snapshot) {
+      if(snapshot.val() != null){ // If the screen_name was already followed
+
+        console.log('@' + screen_name + " followed back to you.");
+
+        // Enter that name in database
+        firebase.database().ref("followbacks").child(settings.PERSON_TWITTER_HANDLE).update({
+          [screen_name]: {
+            connection: "friends"
+          }
+        });
+
+        // Delete the screen_name from `to_unfollow` table
+        firebase.database().ref("to_unfollow/" + settings.PERSON_TWITTER_HANDLE).child(screen_name).remove();
+
+      } else{
+        console.log('@' + screen_name + " followed you.");
+      }
+    });
+
+  });
+/*= End of Phase 2 =*/
+/*=============================================<<<<<*/
+
 // Tweet that YOU USE Glitter bot (PROMOTIONAL)
 if(settings.PROMOTION == 'ON'){
 
   // Tweet that user uses Glitter Bot
   function iUseThis(){
-    var tweet = "Yo! I use #GlitterBot to make my Twitter Account interesting. When will you? https://github.com/KumarAbhirup/glitter";
+    var tweet = "Yo! I use #GlitterBot to make my Twitter Account interesting. \n When will you? https://github.com/KumarAbhirup/glitter";
     T.post('statuses/update', { status: tweet }, function(err, data, response) {
       if(!err){
         console.log("I use #GlitterBot Promotional Tweet published."); // You should promote Glitter Bot if you use it
@@ -67,6 +101,8 @@ if(settings.PROMOTION == 'ON'){
 // Fires when a User follows the authenticated account
 streamUser.on('follow', function (eventMsg) {
 
+  console.log("You were followed.");
+
   var who_followed  = eventMsg.source.id;
   var who_followed_sname  = eventMsg.source.screen_name;
   var who_followed_name  = eventMsg.source.name;
@@ -76,7 +112,7 @@ streamUser.on('follow', function (eventMsg) {
   // Send Automated Direct Message
   if(settings.FOLLOW_ENGAGER_STATUS_DM == 'ON' && who_followed_sname != settings.YOUR_TWITTER_HANDLE){
 
-    var direct_message_when_followed = settings.FOLLOW_THANK_U_NOTE_GREET + " " + who_followed_name + "! " + settings.FOLLOW_THANK_U_NOTE_MSG;
+    var direct_message_when_followed = settings.FOLLOW_THANK_U_NOTE_GREET + " " + who_followed_name + "! \n" + settings.FOLLOW_THANK_U_NOTE_MSG;
     T.post('direct_messages/new', { screen_name: who_followed_sname, text: direct_message_when_followed },  function (err, data, response) {
       if(!err){
         console.log("Follow Thank you note sent successfully to " + who_followed_name + ".");
@@ -92,7 +128,7 @@ streamUser.on('follow', function (eventMsg) {
   // Send Automated Tweet
   if(settings.FOLLOW_ENGAGER_STATUS_TWEET == 'ON' && who_followed_sname != settings.YOUR_TWITTER_HANDLE){
 
-    var tweet = settings.FOLLOW_THANK_U_TWEET_GREET + " " + who_followed_name + " (@" + who_followed_sname + ")..." + " " + settings.FOLLOW_THANK_U_TWEET_MSG;
+    var tweet = settings.FOLLOW_THANK_U_TWEET_GREET + " " + who_followed_name + " (@" + who_followed_sname + ")..." + "\n" + settings.FOLLOW_THANK_U_TWEET_MSG;
     T.post('statuses/update', { status: tweet }, function(err, data, response) {
       if(!err){
         console.log("Follow Thank you tweet sent successfully to " + who_followed_name + ".");
@@ -111,6 +147,8 @@ streamUser.on('follow', function (eventMsg) {
 // Fires when a some User mentions your name or twitter handle in a Tweet
 streamMentions.on('tweet', function (tweet) {
 
+    console.log("You were mentioned.");
+
     var tweet_id = tweet.id_str;
     var mentioner_name = tweet.user.name;
     var mentioner_sname = tweet.user.screen_name;
@@ -119,7 +157,7 @@ streamMentions.on('tweet', function (tweet) {
     if(settings.REPLY_ENGAGER_STATUS == 'ON' && mentioner_sname != settings.YOUR_TWITTER_HANDLE){
 
       // Reply by Tweet
-      var reply = settings.REPLY_M_NOT_THERE_TWEET_GREET + " " + mentioner_name + " (@" + mentioner_sname + ")..." + " " + settings.REPLY_M_NOT_THERE_TWEET_MSG;
+      var reply = settings.REPLY_M_NOT_THERE_TWEET_GREET + " " + mentioner_name + " (@" + mentioner_sname + ")..." + "\n" + settings.REPLY_M_NOT_THERE_TWEET_MSG;
       T.post('statuses/update', { status: reply, in_reply_to_status_id: tweet_id }, function(err, data, response) {
         if(!err){
           console.log("I'm not there Tweet sent successfully to " + mentioner_name + ".");
@@ -129,7 +167,7 @@ streamMentions.on('tweet', function (tweet) {
       });
 
       // Reply by DM (Gives out error if the Mentioner doesn't follow you)
-      var direct_message_when_mentioned = settings.REPLY_M_NOT_THERE_DM_GREET + " " + mentioner_name + "! " + settings.REPLY_M_NOT_THERE_DM_MSG;
+      var direct_message_when_mentioned = settings.REPLY_M_NOT_THERE_DM_GREET + " " + mentioner_name + "! \n" + settings.REPLY_M_NOT_THERE_DM_MSG;
       T.post('direct_messages/new', { screen_name: mentioner_sname, text: direct_message_when_mentioned },  function (err, data, response) {
         if(!err){
           console.log("I'm not there DM reply sent successfully to " + mentioner_name + ".");
@@ -148,13 +186,15 @@ streamMentions.on('tweet', function (tweet) {
 // Whenever someone sends a direct message, this event is Fired.
 streamUser.on('direct_message', function (directMsg) {
 
+  console.log("Someone DMed you!");
+
   var sender_sname = directMsg.direct_message.sender.screen_name;
   var sender_name = directMsg.direct_message.sender.name;
 
   if(settings.DM_BACK_ENGAGER_STATUS == 'ON' && sender_sname != settings.YOUR_TWITTER_HANDLE){
 
     // Reply by DM (Gives out error if the Mentioner doesn't follow you)
-    var direct_message_when_dm = settings.DM_BACK_GREET + " " + sender_name + "! " + settings.DM_BACK_MSG;
+    var direct_message_when_dm = settings.DM_BACK_GREET + " " + sender_name + "! \n" + settings.DM_BACK_MSG;
     T.post('direct_messages/new', { screen_name: sender_sname, text: direct_message_when_dm },  function (err, data, response) {
       if(!err){
 

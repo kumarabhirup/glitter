@@ -2,12 +2,12 @@ console.log("The mass unfollowing bot is starting...");
 console.log("This bot will unfollow the people who have followed you back.");
 
 var Twit = require('twit');
-var config = require('../config'); // Find for config.js in the parent folder
-var settings = require('../settings'); // Find for settings.js in the parent folder
+var config = require('../config'); // Find config.js in same folder
+var settings = require('../settings'); // Find for settings.js in same folder
 
 // Connecting Firebase database
 var firebase = require("firebase-admin");
-var serviceAccount = require("../../glitter.json"); // To connect Glitter Bot to Firebase
+var serviceAccount = require("../../glitter.json");
 
   // Initialize connection
   var database = "https://" + settings.DATABASE + ".firebaseio.com";
@@ -22,13 +22,11 @@ var T = new Twit(config);
 = Phase 4 for FOLLOWER_CHURN (Unfollow the screen_names who have followed you back) =
 ===============================================>>>>>*/
   // Get the screen_names in `followbacks` table
-  firebase.database().ref("followbacks/" + settings.PERSON_TWITTER_HANDLE).on("value", function(snapshot) {
+  firebase.database().ref("followbacks/" + settings.PERSON_TWITTER_HANDLE).once("value", function(snapshot) {
 
     // Functional Loop
     var i = 0;
-    function timedLoop() { // unFollow Function
-
-      setTimeout(function () { // unFollows the user after every `x` seconds
+    function timedLoop() { // unFollows the user after every `x` seconds
 
           /*=============================================>>>>>
           = Thing to be done =
@@ -77,14 +75,12 @@ var T = new Twit(config);
 
           // How many times to loop
           if(i < 5000) {
-              timedLoop();
+              setTimeout( timedLoop, 1000*60*3 ); // After how many seconds. `1000` means 1 second.
           }
 
-      }, 1000*180); // After how many seconds. `1000` means 1 second.
+      }
 
-    }
-
-    timedLoop(); // Run the loop
+      timedLoop(); // Run the loop
 
   });
 /*= End of Phase 4 =*/
