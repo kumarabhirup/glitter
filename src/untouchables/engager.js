@@ -22,6 +22,17 @@ var streamUser = T.stream('user'); // This is Deprecated (di-pri-ke-te-d) by Twi
 var streamMentions = T.stream('statuses/filter', { track: [settings.YOUR_NAME, settings.YOUR_TWITTER_HANDLE] });
 var streamGlitter = T.stream('statuses/filter', { track: ['glitterbot', 'glitter bot'] });
 
+/* Functions */
+function makeReplyCode() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (var i = 0; i < 64; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+
 /*=============================================>>>>>
 = Phase 2 for FOLLOWER_CHURN (Store the screen_name of the person who followed back) =
 ===============================================>>>>>*/
@@ -31,26 +42,34 @@ var streamGlitter = T.stream('statuses/filter', { track: ['glitterbot', 'glitter
 
     var screen_name = eventMsg.source.screen_name; // screen_name of the person who followed
 
-    // Check if the screen_name exists in Firebase Database
-    firebase.database().ref("followed_followers_of/" + settings.PERSON_TWITTER_HANDLE).child(screen_name).on("value", function(snapshot) {
-      if(snapshot.val() != null){ // If the screen_name was already followed
+    var timestamp = Date.now();
+    var reply_code = makeReplyCode();
 
-        console.log('@' + screen_name + " followed back to you.");
+    if(screen_name != settings.YOUR_TWITTER_HANDLE){ // Do not stream yourself
+      firebase.database().ref("followed_followers_of/" + settings.PERSON_TWITTER_HANDLE).child(screen_name).on("value", function(snapshot) {
+        if(snapshot.val() != null){ // Check if the screen_name exists in Firebase Database
 
-        // Enter that name in database
-        firebase.database().ref("followbacks").child(settings.PERSON_TWITTER_HANDLE).update({
-          [screen_name]: {
-            connection: "friends"
-          }
-        });
+          console.log('@' + screen_name + " followed back to you.");
 
-        // Delete the screen_name from `to_unfollow` table
-        firebase.database().ref("to_unfollow/" + settings.PERSON_TWITTER_HANDLE).child(screen_name).remove();
+          // Enter that name in database
+          firebase.database().ref("followbacks").child(settings.PERSON_TWITTER_HANDLE).update({
+            [screen_name]: {
+              connection: "friends"
+            }
+          });
 
-      } else{
-        console.log('@' + screen_name + " followed you.");
-      }
-    });
+          // Delete the screen_name from `to_unfollow` table
+          firebase.database().ref("to_unfollow/" + settings.PERSON_TWITTER_HANDLE).child(screen_name).remove();
+
+        } else{
+
+          console.log('@' + screen_name + " followed you.");
+
+        }
+      });
+    } else {
+      // Do nothing
+    }
 
   });
 /*= End of Phase 2 =*/
@@ -61,51 +80,122 @@ if(settings.PROMOTION == 'ON'){
 
   // Tweet that user uses Glitter Bot
   function iUseThis(){
+
     var tweet = "Yo! I use #GlitterBot to make my Twitter Account interesting. \n When will you? https://github.com/KumarAbhirup/glitter";
+    var timestamp = Date.now();
+
     T.post('statuses/update', { status: tweet }, function(err, data, response) {
       if(!err){
+
+        var tweet_id = data.id_str;
         console.log("I use #GlitterBot Promotional Tweet published."); // You should promote Glitter Bot if you use it
+
+        // Enter this information in `Promotions` table
+        firebase.database().ref("promotions").child("tweets").push().update({
+            status_id: tweet_id,
+            type: "tweet",
+            timestamp: timestamp
+        });
+
       } else{
         console.log(err);
       }
     });
+
   } iUseThis();
-
-
-  // Fires when a some User writes about Glitter Bot
-  streamGlitter.on('tweet', function (tweet) {
-
-      var tweet_id = tweet.id_str;
-      var tweeter_name = tweet.user.name;
-      var tweeter_sname = tweet.user.screen_name;
-
-      if(tweeter_sname != settings.YOUR_TWITTER_HANDLE){
-        // Retweet the Tweet
-        T.post('statuses/retweet/:id', { id: tweet_id }, function(err, data, response) {
-          if(!err){
-            console.log("The Glitter Bot tweet of " + tweeter_name + " is retweeted.");
-          } else{
-            console.log(err);
-          }
-        });
-      } else{
-        console.log("Can't retweet your own tweet.");
-      }
-
-  });
 
 } else{
   console.log("You should Promote Glitter Bot if you use it. :-)");
 }
 
+
+// Fires when a some User writes about Glitter Bot
+streamGlitter.on('tweet', function (tweet) {
+
+    var tweet_id = tweet.id_str;
+    var tweeter_name = tweet.user.name;
+    var tweeter_sname = tweet.user.screen_name;
+
+    var timestamp = Date.now();
+    var reply_code = makeReplyCode();
+
+    // Enter this information in `Streamed` table
+    firebase.database().ref("streamed").child("glitter_tweet").push().update({
+        status_id: tweet_id,
+        type: "tweet",
+        timestamp: timestamp,
+        reply_code: reply_code
+    });
+
+    if(settings.PROMOTION == 'ON'){
+      if(tweeter_sname != settings.YOUR_TWITTER_HANDLE){
+
+        // Retweet the Tweet
+        T.post('statuses/retweet/:id', { id: tweet_id }, function(err, data, response) {
+          if(!err){
+
+            console.log("The Glitter Bot tweet of " + tweeter_name + " is retweeted.");
+
+            // Enter this information in `Promotions` table
+            firebase.database().ref("promotions").child("tweets").push().update({
+                status_id: tweet_id,
+                type: "retweet",
+                timestamp: timestamp
+            });
+
+          } else{
+            console.log(err);
+          }
+        });
+
+      } else{
+        console.log("Can't retweet your own tweet.");
+      }
+    } else{
+      return null;
+    }
+
+});
+
 // Fires when a User follows the authenticated account
 streamUser.on('follow', function (eventMsg) {
 
-  console.log("You were followed.");
-
-  var who_followed  = eventMsg.source.id;
+  var who_followed  = eventMsg.source.id_str;
   var who_followed_sname  = eventMsg.source.screen_name;
   var who_followed_name  = eventMsg.source.name;
+
+  var timestamp = Date.now();
+  var reply_code = makeReplyCode();
+
+  T.get('users/show', { id: who_followed }, function(err, data, response) {
+
+    var following = data.following;
+
+    if (who_followed_sname != settings.YOUR_TWITTER_HANDLE) {
+
+      if (following == false) {
+        // Enter this information in `Streamed` table
+        firebase.database().ref("streamed").child("followed").push().update({
+            name: who_followed_sname,
+            type: "follow",
+            timestamp: timestamp,
+            reply_code: reply_code
+        });
+      } else if (following == true) {
+        // Enter this information in `Streamed` table
+        firebase.database().ref("streamed").child("followed").push().update({
+            name: who_followed_sname,
+            type: "follow_back",
+            timestamp: timestamp,
+            reply_code: reply_code
+        });
+      }
+
+    } else {
+      // Nothing
+    }
+
+  });
 
   console.log(who_followed_name + " followed.");
 
@@ -115,7 +205,18 @@ streamUser.on('follow', function (eventMsg) {
     var direct_message_when_followed = settings.FOLLOW_THANK_U_NOTE_GREET + " " + who_followed_name + "! \n" + settings.FOLLOW_THANK_U_NOTE_MSG;
     T.post('direct_messages/new', { screen_name: who_followed_sname, text: direct_message_when_followed },  function (err, data, response) {
       if(!err){
+
         console.log("Follow Thank you note sent successfully to " + who_followed_name + ".");
+
+        // Enter this information in `messages_replies` table
+        firebase.database().ref("messages_replies").child("messages").push().update({
+            text: direct_message_when_followed,
+            intent: "thanku_follow",
+            receiver: who_followed_sname,
+            timestamp: timestamp,
+            reply_code: reply_code
+        });
+
       } else{
         console.log(err);
       }
@@ -131,7 +232,21 @@ streamUser.on('follow', function (eventMsg) {
     var tweet = settings.FOLLOW_THANK_U_TWEET_GREET + " " + who_followed_name + " (@" + who_followed_sname + ")..." + "\n" + settings.FOLLOW_THANK_U_TWEET_MSG;
     T.post('statuses/update', { status: tweet }, function(err, data, response) {
       if(!err){
+
+        var reply_id = data.id_str;
+
         console.log("Follow Thank you tweet sent successfully to " + who_followed_name + ".");
+
+        // Enter this information in `messages_replies` table
+        firebase.database().ref("messages_replies").child("replies").push().update({
+            status_id: reply_id,
+            intent: "thanku_follow",
+            type: "tweet",
+            name: who_followed_sname,
+            timestamp: timestamp,
+            reply_code: reply_code
+        });
+
       } else{
         console.log(err);
       }
@@ -153,6 +268,21 @@ streamMentions.on('tweet', function (tweet) {
     var mentioner_name = tweet.user.name;
     var mentioner_sname = tweet.user.screen_name;
 
+    var timestamp = Date.now();
+    var reply_code = makeReplyCode();
+
+    if (mentioner_sname != settings.YOUR_TWITTER_HANDLE) {
+      // Enter this information in `Streamed` table
+      firebase.database().ref("streamed").child("mentions").push().update({
+          status_id: tweet_id,
+          name: mentioner_sname,
+          timestamp: timestamp,
+          reply_code: reply_code
+      });
+    } else {
+      // Nothing
+    }
+
     // Tweet Reply when mentioned
     if(settings.REPLY_ENGAGER_STATUS == 'ON' && mentioner_sname != settings.YOUR_TWITTER_HANDLE){
 
@@ -160,7 +290,21 @@ streamMentions.on('tweet', function (tweet) {
       var reply = settings.REPLY_M_NOT_THERE_TWEET_GREET + " " + mentioner_name + " (@" + mentioner_sname + ")..." + "\n" + settings.REPLY_M_NOT_THERE_TWEET_MSG;
       T.post('statuses/update', { status: reply, in_reply_to_status_id: tweet_id }, function(err, data, response) {
         if(!err){
+
+          var reply_id = data.id_str;
+
           console.log("I'm not there Tweet sent successfully to " + mentioner_name + ".");
+
+          // Enter this information in `messages_replies` table
+          firebase.database().ref("messages_replies").child("replies").push().update({
+              status_id: reply_id,
+              intent: "im_mentioned",
+              type: "reply",
+              name: mentioner_sname,
+              timestamp: timestamp,
+              reply_code: reply_code
+          });
+
         } else{
           console.log(err);
         }
@@ -170,7 +314,18 @@ streamMentions.on('tweet', function (tweet) {
       var direct_message_when_mentioned = settings.REPLY_M_NOT_THERE_DM_GREET + " " + mentioner_name + "! \n" + settings.REPLY_M_NOT_THERE_DM_MSG;
       T.post('direct_messages/new', { screen_name: mentioner_sname, text: direct_message_when_mentioned },  function (err, data, response) {
         if(!err){
+
           console.log("I'm not there DM reply sent successfully to " + mentioner_name + ".");
+
+          // Enter this information in `messages_replies` table
+          firebase.database().ref("messages_replies").child("messages").push().update({
+              text: direct_message_when_mentioned,
+              intent: "im_mentioned",
+              receiver: mentioner_sname,
+              timestamp: timestamp,
+              reply_code: reply_code
+          });
+
         } else{
           console.log(err);
         }
@@ -190,6 +345,22 @@ streamUser.on('direct_message', function (directMsg) {
 
   var sender_sname = directMsg.direct_message.sender.screen_name;
   var sender_name = directMsg.direct_message.sender.name;
+  var what_sender_sent = directMsg.direct_message.text;
+
+  var timestamp = Date.now();
+  var reply_code = makeReplyCode();
+
+  if (sender_sname != settings.YOUR_TWITTER_HANDLE) {
+    // Enter this information in `Streamed` table
+    firebase.database().ref("streamed").child("direct_messages").push().update({
+        text: what_sender_sent,
+        name: sender_sname,
+        timestamp: timestamp,
+        reply_code: reply_code
+    });
+  } else {
+    // Nothing
+  }
 
   if(settings.DM_BACK_ENGAGER_STATUS == 'ON' && sender_sname != settings.YOUR_TWITTER_HANDLE){
 
@@ -199,7 +370,18 @@ streamUser.on('direct_message', function (directMsg) {
       if(!err){
 
         if(sender_sname != settings.YOUR_TWITTER_HANDLE){ // To stop infinite logging
+
             console.log("I'm not there DM for DM reply sent successfully to " + sender_name + ".");
+
+            // Enter this information in `messages_replies` table
+            firebase.database().ref("messages_replies").child("messages").push().update({
+                text: direct_message_when_dm,
+                intent: "im_not_there",
+                receiver: sender_sname,
+                timestamp: timestamp,
+                reply_code: reply_code
+            });
+
         } else {
           // Nothing
         }
@@ -293,7 +475,18 @@ if(settings.EVERYDAY_TRENDER == 'ON'){
                 function tweetProverb(tweet){
                   T.post('statuses/update', { status: tweet }, function(err, data, response) {
                     if(!err){
+
+                      var tweet_id = data.id_str;
+                      var timestamp = Date.now();
+
                       console.log("Everyday trending tweet is Tweeted!");
+
+                      // Enter this information in `Streamed` table
+                      firebase.database().ref("tweets").child("everyday_trends").push().update({
+                          status_id: tweet_id,
+                          timestamp: timestamp
+                      });
+
                     } else{
                       console.log(err);
                     }
@@ -382,7 +575,18 @@ if(settings.TROLL_BOT == 'ON'){
       var in_reply_to_sname = tweet.in_reply_to_screen_name;
       var in_reply_to_status_id_str = tweet.in_reply_to_status_id_str;
 
+      var timestamp = Date.now();
+      var reply_code = makeReplyCode();
+
       console.log(tweet_user_name + " is caught on Stream!");
+
+      // Enter this information in `Streamed` table
+      firebase.database().ref("streamed").child("to_be_trolled").push().update({
+          status_id: tweet_id,
+          name: tweet_user_sname,
+          timestamp: timestamp,
+          reply_code: reply_code
+      });
 
       // A function which checks whether there is the specified object/key in the array
       function arrayContains(array, key) {
@@ -407,7 +611,21 @@ if(settings.TROLL_BOT == 'ON'){
 
         T.post('statuses/update', { status: troll, in_reply_to_status_id: tweet_id }, function(err, data, response) {
           if(!err){
+
+            var reply_id = data.id_str;
+
             console.log("Troll reply: \n" + troll + "\n sent to " + tweet_user_name + "!");
+
+            // Enter this information in `messages_replies` table
+            firebase.database().ref("messages_replies").child("replies").push().update({
+              status_id: reply_id,
+              intent: "troll",
+              type: "reply",
+              name: tweet_user_sname,
+              timestamp: timestamp,
+              reply_code: reply_code
+            });
+
           } else{
             console.log(err);
           }
