@@ -33,6 +33,7 @@ function makeReplyCode() {
   return text;
 }
 
+
 /*=============================================>>>>>
 = Phase 2 for FOLLOWER_CHURN (Store the screen_name of the person who followed back) =
 ===============================================>>>>>*/
@@ -74,6 +75,7 @@ function makeReplyCode() {
   });
 /*= End of Phase 2 =*/
 /*=============================================<<<<<*/
+
 
 // Tweet that YOU USE Glitter bot (PROMOTIONAL)
 if(settings.PROMOTION == 'ON'){
@@ -119,13 +121,17 @@ streamGlitter.on('tweet', function (tweet) {
     var timestamp = Date.now();
     var reply_code = makeReplyCode();
 
-    // Enter this information in `Streamed` table
-    firebase.database().ref("streamed").child("glitter_tweet").push().update({
-        status_id: tweet_id,
-        type: "tweet",
-        timestamp: timestamp,
-        reply_code: reply_code
-    });
+    if(tweeter_sname != settings.YOUR_TWITTER_HANDLE){
+      // Enter this information in `Streamed` table
+      firebase.database().ref("streamed").child("glitter_tweet").push().update({
+          status_id: tweet_id,
+          type: "tweet",
+          timestamp: timestamp,
+          reply_code: reply_code
+      });
+    } else {
+      // Nothing
+    }
 
     if(settings.PROMOTION == 'ON'){
       if(tweeter_sname != settings.YOUR_TWITTER_HANDLE){
@@ -156,6 +162,7 @@ streamGlitter.on('tweet', function (tweet) {
     }
 
 });
+
 
 // Fires when a User follows the authenticated account
 streamUser.on('follow', function (eventMsg) {
@@ -225,6 +232,7 @@ streamUser.on('follow', function (eventMsg) {
   } else{
     console.log(null);
   }
+
 
   // Send Automated Tweet
   if(settings.FOLLOW_ENGAGER_STATUS_TWEET == 'ON' && who_followed_sname != settings.YOUR_TWITTER_HANDLE){
@@ -544,6 +552,8 @@ if(settings.EVERYDAY_TRENDER == 'ON'){
 
   } setInterval(everydayTrends, 1000*60*60*24); // Tweet the Everyday Trends after every 24 hours (1000*60*60*24)
 
+} else {
+  // Nothing
 }
 
 
@@ -580,14 +590,6 @@ if(settings.TROLL_BOT == 'ON'){
 
       console.log(tweet_user_name + " is caught on Stream!");
 
-      // Enter this information in `Streamed` table
-      firebase.database().ref("streamed").child("to_be_trolled").push().update({
-          status_id: tweet_id,
-          name: tweet_user_sname,
-          timestamp: timestamp,
-          reply_code: reply_code
-      });
-
       // A function which checks whether there is the specified object/key in the array
       function arrayContains(array, key) {
           for (var i = 0; i < array.length; i++) {
@@ -596,6 +598,18 @@ if(settings.TROLL_BOT == 'ON'){
               }
           }
           return false;
+      }
+
+      if(in_reply_to_sname == null && in_reply_to_status_id_str == null && arrayContains(settings.TO_BE_TROLLED, tweet_user_sname)){
+        // Enter this information in `Streamed` table
+        firebase.database().ref("streamed").child("to_be_trolled").push().update({
+            status_id: tweet_id,
+            name: tweet_user_sname,
+            timestamp: timestamp,
+            reply_code: reply_code
+        });
+      } else {
+        // Nothing
       }
 
       if(in_reply_to_sname != null && in_reply_to_status_id_str != null && !arrayContains(settings.TO_BE_TROLLED, tweet_user_sname)){ // Do nothing if Tweet is a reply and is not composed by any of the member in TO_BE_TROLLED list.
@@ -635,4 +649,6 @@ if(settings.TROLL_BOT == 'ON'){
     });
 
   });
+} else {
+  // Nothing
 }
