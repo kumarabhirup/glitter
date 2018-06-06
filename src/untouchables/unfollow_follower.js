@@ -89,7 +89,7 @@ var T = new Twit(config);
 
           // How many times to loop
           if(i < 5000) {
-              setTimeout( timedLoop, 1000*10 ); // After how many seconds. `1000` means 1 second.
+              setTimeout( timedLoop, 1000*60*3 ); // After how many seconds. `1000` means 1 second.
           }
 
       }
