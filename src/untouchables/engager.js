@@ -117,13 +117,15 @@ streamGlitter.on('tweet', function (tweet) {
     var tweet_id = tweet.id_str;
     var tweeter_name = tweet.user.name;
     var tweeter_sname = tweet.user.screen_name;
+    var retweeted = tweet.retweeted;
 
     var timestamp = Date.now();
     var reply_code = makeReplyCode();
 
-    if(tweeter_sname != settings.YOUR_TWITTER_HANDLE){
+    if(tweeter_sname != settings.YOUR_TWITTER_HANDLE && retweeted == false){
       // Enter this information in `Streamed` table
       firebase.database().ref("streamed").child("glitter_tweet").push().update({
+          name: tweeter_sname,
           status_id: tweet_id,
           type: "tweet",
           timestamp: timestamp,
@@ -134,7 +136,7 @@ streamGlitter.on('tweet', function (tweet) {
     }
 
     if(settings.PROMOTION == 'ON'){
-      if(tweeter_sname != settings.YOUR_TWITTER_HANDLE){
+      if(tweeter_sname != settings.YOUR_TWITTER_HANDLE && retweeted == false){
 
         // Retweet the Tweet
         T.post('statuses/retweet/:id', { id: tweet_id }, function(err, data, response) {
@@ -144,6 +146,7 @@ streamGlitter.on('tweet', function (tweet) {
 
             // Enter this information in `Promotions` table
             firebase.database().ref("promotions").child("tweets").push().update({
+                name: tweeter_sname,
                 status_id: tweet_id,
                 type: "retweet",
                 timestamp: timestamp

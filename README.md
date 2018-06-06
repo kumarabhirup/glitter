@@ -47,9 +47,8 @@ Install NPM [here](https://nodejs.org/en/download/current). -->
 - Download all the files to your local machine by directly downloading the zip file from this GitHub repo.
 - Unzip the files and change the folder name from `glitter-master` to `glitter-<yourname>`.
 - Once you downloaded the files, open `Terminal` if you are on Mac and if you use Windows, use the `Git bash` that you downloaded in Step 1.
-- Once you open Terminal, enter into the project file: `$ cd glitter`. The command depends on your current folder location. **If you don't know how to use terminal, you may need to learn small tit-bits on internet.**
+- Once you open Terminal, enter into the project file: `$ cd glitter-<yourname>`. The command depends on your current folder location. **If you don't know how to use terminal, you may need to learn small tit-bits on internet.**
 <!-- - Once you are in `glitter` folder, type this command in the Terminal: `$ npm install`. This process will download all the needed files that makes Glitter work. -->
-- When dependencies are installed, you are done with the needs of bot!
 
 ### Step 4: Get Twitter API keys
 - Go to [Twitter App Manager](https://apps.twitter.com)
@@ -108,7 +107,7 @@ $ git push heroku master
 
 <img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/heroku.jpg" alt="Heroku Resources" title="Heroku Resources" width="100%">
 
-- As you see in above image, switch on the `engager` dyno to make your engager bot work 24x7
+<!-- As you see in above image, switch on the `web` dyno to make your engager bot work 24x7 -->
 - To check if you got any errors, open Terminal and type `heroku logs`. If you see good things, congratulations! Engager is working...
 - All this was just a setup. **THE REAL STUFF HASN'T YET STARTED!**
 
