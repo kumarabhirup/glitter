@@ -45,27 +45,41 @@ var T = new Twit(config);
                 return returnArr;
             };
 
-            var screen_name_to_unfollow = snapshotToArray(snapshot)[i].key;
+            if(snapshotToArray(snapshot).length != 0){
 
-            // UnFollow
-            T.post('friendships/destroy', { screen_name: screen_name_to_unfollow },  function (err, data, response) {
-              if(!err){
-                console.log(settings.PERSON_NICKNAME + " follower " + screen_name_to_unfollow + " unfollowed.");
+              if(snapshotToArray(snapshot).length > i){
 
-                // Create an `unfollowed` table and insert the screen_name there
-                firebase.database().ref("unfollowed").child(settings.PERSON_TWITTER_HANDLE).update({
-                  [screen_name_to_unfollow]: {
-                    connection: "unfollowed"
+                var screen_name_to_unfollow = snapshotToArray(snapshot)[i].key;
+
+                // UnFollow
+                T.post('friendships/destroy', { screen_name: screen_name_to_unfollow },  function (err, data, response) {
+
+                  if(!err){
+                    console.log(settings.PERSON_NICKNAME + " follower " + screen_name_to_unfollow + " unfollowed.");
+
+                    // Create an `unfollowed` table and insert the screen_name there
+                    firebase.database().ref("unfollowed").child(settings.PERSON_TWITTER_HANDLE).update({
+                      [screen_name_to_unfollow]: {
+                        connection: "unfollowed"
+                      }
+                    });
+
+                    // Delete the screen_name from `to_unfollow` table
+                    firebase.database().ref("followbacks/" + settings.PERSON_TWITTER_HANDLE).child(screen_name_to_unfollow).remove();
+
+                  } else{
+                    console.log(err);
                   }
+
                 });
 
-                // Delete the screen_name from `to_unfollow` table
-                firebase.database().ref("followbacks/" + settings.PERSON_TWITTER_HANDLE).child(screen_name_to_unfollow).remove();
-
-              } else{
-                console.log(err);
+              } else {
+                console.log("Process Complete.");
               }
-            });
+
+            } else {
+              console.log("Found no one to unfollow");
+            }
 
           /*= End of Thing to be done =*/
           /*=============================================<<<<<*/
@@ -75,7 +89,7 @@ var T = new Twit(config);
 
           // How many times to loop
           if(i < 5000) {
-              setTimeout( timedLoop, 1000*60*3 ); // After how many seconds. `1000` means 1 second.
+              setTimeout( timedLoop, 1000*10 ); // After how many seconds. `1000` means 1 second.
           }
 
       }
