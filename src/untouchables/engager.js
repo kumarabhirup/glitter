@@ -149,7 +149,8 @@ streamGlitter.on('tweet', function (tweet) {
                 name: tweeter_sname,
                 status_id: tweet_id,
                 type: "retweet",
-                timestamp: timestamp
+                timestamp: timestamp,
+                reply_code: reply_code
             });
 
           } else{
