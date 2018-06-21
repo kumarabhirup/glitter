@@ -1,4 +1,4 @@
-// This file contains the screen_name of the person whose's followers to follow
+// This file contains all the settings that drive this bot to the result.
 module.exports = Object.freeze({
 
   // Setup

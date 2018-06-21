@@ -4,7 +4,7 @@
   "description": "A bot that brings you followers.",
   "main": "glitter.js",
   "scripts": {
-    "start": "node src/untouchables/engager.js",
+    "start": "node index.js",
     "test": "node src/tests/test.js"
   },
   "repository": {
@@ -27,9 +27,9 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "firebase-admin": "^5.12.1",
-    "request": "^2.87.0",
-    "twit": "^2.2.9",
     "json-loader": "^0.5.4",
+    "request": "^2.87.0",
+    "twit": "^2.2.10",
     "util": "^0.10.3"
   }
 }
