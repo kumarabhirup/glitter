@@ -2,14 +2,9 @@
 The **only bot** that could automate your Twitter Account at its best!
 
 # Features
-- Auto engager
-- 'Everyday Trend' Tweeter
+- Send a sweet ThankU message to a person who followed you.
+- 'Everyday Trend' Tweeter (Eg. #MondayMorning, #FridayFeeling)
 - Follower Churner
-- Troller bot
-
-### What is Auto Engager?
-This bot is capable to handle the circumstances where you get busy. When people mention you or DM you, bot can automatically reply of your absence right now.
-**NOT JUST THAT!** This bot periodically publishes Tweets based on the Twitter Trends. So, you don't miss any trend that had the capability to bring you good followers.
 
 ### What is Everyday Trend Tweeter?
 Have you seen a **#MondayMotivation** or a **#FridayFeeling** tweet with a random proverb above? You might be doing it by copying proverbs and pasting it in twitter composer. But now, _Bot does it for you everyday!_
@@ -114,8 +109,6 @@ $ git push heroku master
 ---
 
 ## How to use Glitter bot
-
-> **Note:** Your Twitter account might get locked after few hours of starting this bot. Just unlock it by verifying email or phone number and your Twitter bot is ready to go without any interruption!
 
 **Follow people of your interest:** In `settings.js`, you have given a reference to the Twitter handle whose followers are to be followed. If yes, then just go to `Resources` tab in Heroku and switch on the `follower` dyno. That will start following the followers immediately.
 
