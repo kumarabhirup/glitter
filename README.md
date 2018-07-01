@@ -3,11 +3,13 @@ The **only bot** that could automate your Twitter Account at its best!
 
 # Features
 - Send a sweet ThankU message to a person who followed you.
-- 'Everyday Trend' Tweeter (Eg. #MondayMorning, #FridayFeeling)
-- Follower Churner
+- 'Everyday Trend' Tweeter **(Eg. #MondayMorning, #FridayFeeling)**
+- Follower Churner (Trick Twitter and Gain Followers)
 
 ### What is Everyday Trend Tweeter?
 Have you seen a **#MondayMotivation** or a **#FridayFeeling** tweet with a random proverb above? You might be doing it by copying proverbs and pasting it in twitter composer. But now, _Bot does it for you everyday!_
+
+<img src="https://preview.ibb.co/kzLTGd/Everyday_Trender_Tweet.jpg" alt="How to everydayTrends" title="How to everydayTrends" width="100%">
 
 ### What is Follower Churner?
 Simply saying, this Twitter bot follows Thousands of people of your interests at once. The ones who don't follow you back can be unfollowed after some days. And the ones who have followed you back can also be unfollowed, but after 30 days.
@@ -75,7 +77,7 @@ Install NPM [here](https://nodejs.org/en/download/current). -->
 YOUR_NAME: 'my name goes here', // Eg. Steve Jobs
 YOUR_TWITTER_HANDLE: 'my twitter handle goes here', // Your Twitter handle (without @)
 ```
-- In `settings.js` (Same file), change the SCREEN_NAME and NICKNAME property. That needs to be of the person whose followers are to followed in Follower Churning process.
+- In `settings.js` (Same file), change the SCREEN_NAME and NICKNAME property. That needs to be of the person whose followers are to be followed in Follower Churning process.
 ```
 PERSON_TWITTER_HANDLE: 'john_doe', // The Twitter handle (without @) of the person whose followers are to be followed
 PERSON_NICKNAME: 'JohnDoe' // A small name or a nickname of that person
@@ -84,7 +86,30 @@ PERSON_NICKNAME: 'JohnDoe' // A small name or a nickname of that person
 ```
 DATABASE: 'glitter-bot-<yourname>' // App name that you inserted while creating project at Firebase
 ```
-- If you are using the `master` branched project, you must be seeing a `settings.js` file with many more settings. **LEAVE THEM ALONE**. I'm building documentation to tell what those settings do.
+- In the same file, you will find settings for sending ThankU message when someone follows you. Keep `FOLLOW_ENGAGER_STATUS_DM` *ON* if you want to send *Thank You message* in form of a direct message. And.. Keep `FOLLOW_ENGAGER_STATUS_TWEET` *ON* if you want to send *Thank You message* in form of a public mentioned Tweet.
+```
+// When someone follows
+  // Engager bot for DM after follow
+  FOLLOW_ENGAGER_STATUS_DM: 'ON', // Keep it OFF if you don't want this bot to automatically DM someone who followed you. Else, turn it ON.
+  FOLLOW_THANK_U_NOTE_GREET: "Hi,", // Result: Hey, <name-of-person-who-followed>!
+  FOLLOW_THANK_U_NOTE_MSG: "Thanks for following me on Twitter. :) I use #GlitterBot for automating my Twitter account. When will you? https://github.com/KumarAbhirup/glitter",
+
+  // Engager bot for Thank You Tweet after follow
+  FOLLOW_ENGAGER_STATUS_TWEET: 'OFF', // Keep it OFF if you don't want this bot to automatically Mention-Tweet someone who followed you. Else, turn it ON.
+  FOLLOW_THANK_U_TWEET_GREET: "Hey,", // Result: Hey, @<screen-name-of-person-who-followed>...
+  FOLLOW_THANK_U_TWEET_MSG: "Thanks for following me on Twitter.",
+```
+- If you want to tweet everydayTrends with relevant proverbs and hashtags, keep `EVERYDAY_TRENDER` in `settings.js` *ON*. You can also edit and change the hashtags for every day of the week...
+```
+// Everyday Hashtags
+MONDAY: "#MondayMotivation #MondayMorning #MusicMonday",
+TUESDAY: "#TuesdayMotivation #TuesdayThoughts",
+WEDNESDAY: "#WednesdayWisdom #WonderfulWednesday",
+THURSDAY: "#ThrowbackThursday #ThankfulThursday",
+FRIDAY: "#FridayFeeling #FollowFriday",
+SATURDAY: "#SaturdaySpirit #Saturday",
+SUNDAY: "#SundayFunday",
+```
 - Remember the `glitter.json` file that you downloaded in Step 2? Copy and Paste that file to the root of this project folder.
 - **And you are almost done with your bot!**
 
@@ -98,25 +123,30 @@ $ git add .
 $ git commit -am "My Glitter bot deployed"
 $ git push heroku master
 ```
-- Once you push all your files, go to `resources` tab in Heroku Dashboard, and you should see something like this:
-
-<img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/heroku.jpg" alt="Heroku Resources" title="Heroku Resources" width="100%">
-
 <!-- As you see in above image, switch on the `web` dyno to make your engager bot work 24x7 -->
-- To check if you got any errors, open Terminal and type `heroku logs`. If you see good things, congratulations! Engager is working...
+- To check if you got any errors, open Terminal and type `heroku logs`. If you see good things, congratulations! Bot is working...
 - All this was just a setup. **THE REAL STUFF HASN'T YET STARTED!**
 
 ---
 
 ## How to use Glitter bot
 
+### Churn Followers
 **Follow people of your interest:** In `settings.js`, you have given a reference to the Twitter handle whose followers are to be followed. If yes, then just go to `Resources` tab in Heroku and switch on the `follower` dyno. That will start following the followers immediately.
 
 **Once you have followed the people, unfollow the people who haven't followed you back:** Do this step after 10 days of you following them. This will give them some time to follow you back. When you want to unfollow the ones who haven't followed you back, just go to `Resources` tab in Heroku and switch on the `unfollow_unfollower` dyno. This will start unfollowing those people.
 
 **Unfollow the people who followed you back:** Do this step after a month or two of you following them. This won't let them know that you unfollowed them. When you want to unfollow the ones who followed you back, just go to `Resources` tab in Heroku and switch on the `unfollow_follower` dyno. This will start unfollowing those people.
 
-> **AND MUCH MORE!** _Right now, you can only churn followers._ An update will be rolled out with all new features. Then you can not only churn, but also make your bot automatically engage with people on Twitter!
+### Change Settings and Restart bot
+To do this, change and set texts as per your desire in `settings.js`. If you want to change the account on which bot will function, you need to change APP CONFIG keys in `config.js`.
+Once you make all your changes,
+hit these commands in your Terminal...
+```
+$ git add .
+$ git commit -am "Settings changed"
+$ git push heroku master
+```
 
 **And that's it! Future Glitter updates will surely have some more automation and will make tasks easier for you :-)**
 
