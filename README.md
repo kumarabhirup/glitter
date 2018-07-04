@@ -64,12 +64,12 @@ Install NPM [here](https://nodejs.org/en/download/current). -->
 ```
 - After you are ready with your API keys pasted in the `config.js`, head over to next step.
 
-### Step 5: Create your Heroku account
-- Log on to [heroku.com](https://www.heroku.com)
-- Create new App and let its name be: `glitter-bot-<yourname>`
-- Once you create this app, head over to [Heroku Command Line Tools](https://devcenter.heroku.com/categories/command-line) and Install the Heroku CLI.
-- When you are done downloading, open Terminal and type: `$ heroku login`
-- Then it will ask you email and password, and when you are logged in, you are done and ready to use Glitter!
+### Step 5: Create your Zeit Account
+- Log on to [zeit.co](https://zeit.co/login). We'll be using their product (now.sh) for deployment.
+- Install `now`.
+```
+$ npm i -g now
+```
 
 ### Step 6: Setup the Project
 - In the `src` folder, open `settings.js` and change the YOUR_NAME and YOUR_TWITTER_HANDLE property.
@@ -113,18 +113,16 @@ SUNDAY: "#SundayFunday",
 - Remember the `glitter.json` file that you downloaded in Step 2? Copy and Paste that file to the root of this project folder.
 - **And you are almost done with your bot!**
 
-### Last Step: Upload the files to your Heroku server
-- To upload all the files to the Heroku server, you need Git installed (Step 1).
-- Write these commands in Terminal (Make sure you are at Project's root path):
+### Last Step: Upload the files to your now.sh (Deploy Time!)
+- Just type this in terminal:
 ```
-$ git init
-$ heroku git:remote -a <name_of_your_heroku_app>
-$ git add .
-$ git commit -am "My Glitter bot deployed"
-$ git push heroku master
+$ now
 ```
-<!-- As you see in above image, switch on the `web` dyno to make your engager bot work 24x7 -->
-- To check if you got any errors, open Terminal and type `heroku logs`. If you see good things, congratulations! Bot is working...
+- It will ask you for an email. Enter the email you provided while creating your Zeit account. Once entered, you many need to visit your Email Client and verify yourself.
+- And you are done! You'll get your deployment-url in the terminal, and that's where your bot is located.
+
+<img src="https://preview.ibb.co/c49L2J/Terminal.jpg" alt="Using Now.sh for deploying" title="Using Now.sh for deploying" width="100%">
+
 - All this was just a setup. **THE REAL STUFF HASN'T YET STARTED!**
 
 ---
@@ -132,21 +130,25 @@ $ git push heroku master
 ## How to use Glitter bot
 
 ### Churn Followers
-**Follow people of your interest:** In `settings.js`, you have given a reference to the Twitter handle whose followers are to be followed. If yes, then just go to `Resources` tab in Heroku and switch on the `follower` dyno. That will start following the followers immediately.
+**Follow people of your interest:** In `settings.js`, you have given a reference to the Twitter handle whose followers are to be followed. If yes, then just turn `BULK_FOLLOW` attribute in `settings.js` *ON* and deploy again *(To learn how to deploy second time, scroll down).*
 
-**Once you have followed the people, unfollow the people who haven't followed you back:** Do this step after 10 days of you following them. This will give them some time to follow you back. When you want to unfollow the ones who haven't followed you back, just go to `Resources` tab in Heroku and switch on the `unfollow_unfollower` dyno. This will start unfollowing those people.
+**Once you have followed the people, unfollow the people who haven't followed you back:** Do this step after 10 days of you following them. This will give them some time to follow you back. When you want to unfollow the ones who haven't followed you back, then just turn `BULK_UNFOLLOW_UNFOLLOWERS` attribute in `settings.js` *ON* and deploy again *(To learn how to deploy second time, scroll down).* This will start unfollowing those people.
 
-**Unfollow the people who followed you back:** Do this step after a month or two of you following them. This won't let them know that you unfollowed them. When you want to unfollow the ones who followed you back, just go to `Resources` tab in Heroku and switch on the `unfollow_follower` dyno. This will start unfollowing those people.
+**Unfollow the people who followed you back:** Do this step after a month or two of you following them. This won't let them know that you unfollowed them. When you want to unfollow the ones who followed you back, then just turn `BULK_UNFOLLOW_FOLLOWERS` attribute in `settings.js` *ON* and deploy again *(To learn how to deploy second time, scroll down).* This will start unfollowing those people.
 
-### Change Settings and Restart bot
+### Change Settings and Deploy for second time
 To do this, change and set texts as per your desire in `settings.js`. If you want to change the account on which bot will function, you need to change APP CONFIG keys in `config.js`.
 Once you make all your changes,
 hit these commands in your Terminal...
 ```
-$ git add .
-$ git commit -am "Settings changed"
-$ git push heroku master
+$ now ls
 ```
+When you do this, you'll see your latest deployments. Just copy/grab the deployment-url of the latest glitter deployment and hit this command:
+```
+$ now rm <copied-deployment-url>
+$ now
+```
+By doing this, you are ensuring that no other bot is controlling your account other than your latest fresh Twitter bot.
 
 **And that's it! Future Glitter updates will surely have some more automation and will make tasks easier for you :-)**
 
@@ -169,13 +171,7 @@ $ git push heroku master
     access_token_secret: '...'
 }
 ```
-- After you changed all the tokens and keys, do this in terminal:
-```
-$ git add .
-$ git commit -m "Config keys changed"
-$ git push heroku master
-```
-- When new keys are uploaded, Type this command: `$ heroku restart` in the Terminal.
+- After you changed all the tokens and keys, deploy again. *(Scroll above to learn how to deploy bot for the second time)*
 
 ## Terms of use
 This software is free to use. Enjoy glittering!

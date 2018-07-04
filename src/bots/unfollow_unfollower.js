@@ -1,12 +1,16 @@
-console.log("The mass unfollowing bot is starting...");
-console.log("This bot will unfollow the people who haven't followed you back.");
+const bulk_unfollow_unfollowers = () => {
+  var settings = require('../settings');
 
-// Include all bots
-var databaseConnect = require('./untouchables/databaseConnect').connect;
-var unfollowUnfollower = require('./untouchables/churner_unfollowUnfollower');
+  if (settings.BULK_UNFOLLOW_UNFOLLOWERS == 'ON') {
+    console.log("The mass unfollowing bot is starting...");
+    console.log("This bot will unfollow the people who haven't followed you back.");
 
-// Connect to the Firebase Database
-databaseConnect()
+    // Include all bots
+    var unfollowUnfollower = require('./untouchables/churner_unfollowUnfollower');
 
-// Lights, Camera, Action
-unfollowUnfollower()
+    // Lights, Camera, Action
+    unfollowUnfollower()
+  }
+}
+
+module.exports = bulk_unfollow_unfollowers;

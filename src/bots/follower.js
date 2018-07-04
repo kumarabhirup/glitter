@@ -1,11 +1,15 @@
-console.log('The mass following bot is starting...');
+const bulk_follow = () => {
+  var settings = require('../settings');
 
-// Include all bots
-var databaseConnect = require('./untouchables/databaseConnect').connect;
-var follower = require('./untouchables/churner_follow');
+  if (settings.BULK_FOLLOW == 'ON') {
+    console.log('The mass following bot is starting...');
 
-// Connect to the Firebase Database
-databaseConnect()
+    // Include all bots
+    var follower = require('./untouchables/churner_follow');
 
-// Lights, Camera, Action
-follower()
+    // Lights, Camera, Action
+    follower()
+  }
+}
+
+module.exports = bulk_follow;
