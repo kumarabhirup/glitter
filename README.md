@@ -1,5 +1,5 @@
 # Glitter!
-The **only bot** that could tweets a random proverb and its writer with an EveryDay Hashtag. **(Eg. #MondayMorning, #FridayFeeling)**
+Automate your Twitter. Endlessly.
 
 # Features
 - Send a sweet ThankU message to a person who followed you.
