@@ -1,22 +1,14 @@
 # Glitter!
-The **only bot** that could automate your Twitter Account at its best!
+The **only bot** that could tweets a random proverb and its writer with an EveryDay Hashtag. **(Eg. #MondayMorning, #FridayFeeling)**
 
 # Features
 - Send a sweet ThankU message to a person who followed you.
 - 'Everyday Trend' Tweeter **(Eg. #MondayMorning, #FridayFeeling)**
-- Follower Churner (Trick Twitter and Gain Followers)
 
 ### What is Everyday Trend Tweeter?
 Have you seen a **#MondayMotivation** or a **#FridayFeeling** tweet with a random proverb above? You might be doing it by copying proverbs and pasting it in twitter composer. But now, _Bot does it for you everyday!_
 
 <img src="https://preview.ibb.co/kzLTGd/Everyday_Trender_Tweet.jpg" alt="How to everydayTrends" title="How to everydayTrends" width="100%">
-
-### What is Follower Churner?
-Simply saying, this Twitter bot follows Thousands of people of your interests at once. The ones who don't follow you back can be unfollowed after some days. And the ones who have followed you back can also be unfollowed, but after 30 days.
-
-This bot can work 24x7 for you being a watchdog about who followed back and who you followed. A NoSQL database is used in backend to retrieve and use all the data about whom you followed and whom you haven't.
-
-This bot also takes some measures to prevent following false accounts. This software has been already tried many times. 1 out of every 5 people have followed back. That means, when this bot follows 5000 people, who have a fair chance of getting 1000 followers at once. **You can unfollow those exact people after some days. Not manually, bot does it for you!**
 
 # Documentation
 <img src="https://github.com/KumarAbhirup/glitter/blob/9cb6299b0e9b41cda52064468df07ba6728a30e7/assets/how-to-glitter.jpg" alt="How to use Glitter" title="How to use Glitter" width="100%">
@@ -77,11 +69,6 @@ $ npm i -g now
 YOUR_NAME: 'my name goes here', // Eg. Steve Jobs
 YOUR_TWITTER_HANDLE: 'my twitter handle goes here', // Your Twitter handle (without @)
 ```
-- In `settings.js` (Same file), change the SCREEN_NAME and NICKNAME property. That needs to be of the person whose followers are to be followed in Follower Churning process.
-```
-PERSON_TWITTER_HANDLE: 'john_doe', // The Twitter handle (without @) of the person whose followers are to be followed
-PERSON_NICKNAME: 'JohnDoe' // A small name or a nickname of that person
-```
 - In `src/settings.js` change the `DATABASE` property to the app name that you inserted in Firebase. In your case, it might be `glitter-bot-<yourname>`.
 ```
 DATABASE: 'glitter-bot-<yourname>' // App name that you inserted while creating project at Firebase
@@ -128,13 +115,6 @@ $ now
 ---
 
 ## How to use Glitter bot
-
-### Churn Followers
-**Follow people of your interest:** In `settings.js`, you have given a reference to the Twitter handle whose followers are to be followed. If yes, then just turn `BULK_FOLLOW` attribute in `settings.js` *ON* and deploy again *(To learn how to deploy second time, scroll down).*
-
-**Once you have followed the people, unfollow the people who haven't followed you back:** Do this step after 10 days of you following them. This will give them some time to follow you back. When you want to unfollow the ones who haven't followed you back, then just turn `BULK_UNFOLLOW_UNFOLLOWERS` attribute in `settings.js` *ON* and deploy again *(To learn how to deploy second time, scroll down).* This will start unfollowing those people.
-
-**Unfollow the people who followed you back:** Do this step after a month or two of you following them. This won't let them know that you unfollowed them. When you want to unfollow the ones who followed you back, then just turn `BULK_UNFOLLOW_FOLLOWERS` attribute in `settings.js` *ON* and deploy again *(To learn how to deploy second time, scroll down).* This will start unfollowing those people.
 
 ### Change Settings and Deploy for second time
 To do this, change and set texts as per your desire in `settings.js`. If you want to change the account on which bot will function, you need to change APP CONFIG keys in `config.js`.

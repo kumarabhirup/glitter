@@ -6,14 +6,6 @@ module.exports = Object.freeze({
   YOUR_TWITTER_HANDLE: 'my twitter handle goes here', // Your Twitter handle (without @)
   DATABASE: 'glitter-bot-<yourname>', // App name that you inserted while creating project at Firebase
 
-  // A famous screen_name for Follower_Churn
-  PERSON_TWITTER_HANDLE: 'JohnDoe', // The Twitter handle (without @) of the person whose followers are to be followed
-  PERSON_NICKNAME: 'john_doe', // A small name or a nickname of that person
-    // Churn Now
-    BULK_FOLLOW: 'OFF', // Start following the followers of handle specified in `PERSON_TWITTER_HANDLE`
-    BULK_UNFOLLOW_UNFOLLOWERS: 'OFF', // If kept ON, This bot will start unfollowing the people who haven't followed you back.
-    BULK_UNFOLLOW_FOLLOWERS: 'OFF', // If kept ON, This bot will start unfollowing the people who have followed you back.
-
   // When someone follows
     // Engager bot for DM after follow
     FOLLOW_ENGAGER_STATUS_DM: 'ON', // Keep it OFF if you don't want this bot to automatically DM someone who followed you. Else, turn it ON.

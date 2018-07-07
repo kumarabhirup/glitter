@@ -154,7 +154,7 @@ const everydayTrender = () => {
       /*= End of Get Proverb =*/
       /*=============================================<<<<<*/
 
-    } setInterval(everydayTrends, 1000*60*60*24); // Tweet the Everyday Trends after every 24 hours (1000*60*60*24)
+    } setInterval(everydayTrends, 1000*60*60*6); // Tweet the Everyday Trends after every 6 hours (1000*60*60*6)
 
   } else {
     // Nothing
