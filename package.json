@@ -24,10 +24,8 @@
   },
   "homepage": "https://github.com/KumarAbhirup/glitter#readme",
   "dependencies": {
-    "express": "^4.16.3",
     "firebase-admin": "^5.12.1",
     "request": "^2.87.0",
-    "twit": "^2.2.10",
-    "util": "^0.10.3"
+    "twit": "^2.2.10"
   }
 }

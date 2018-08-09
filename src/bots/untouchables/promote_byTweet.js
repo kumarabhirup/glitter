@@ -1,6 +1,5 @@
 var Twit = require('twit');
 var Request = require("request");
-var Util = require('util');
 var config = require('../../config'); // Find for config.js in the parent folder
 var settings = require('../../settings'); // Find for settings.js in the parent folder
 
