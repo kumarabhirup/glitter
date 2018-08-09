@@ -106,7 +106,12 @@ SUNDAY: "#SundayFunday",
 $ now
 ```
 - It will ask you for an email. Enter the email you provided while creating your Zeit account. Once entered, you many need to visit your Email Client and verify yourself.
-- And you are done! You'll get your deployment-url in the terminal, and that's where your bot is located.
+- Then you need to get the Deployment URL. For that... write in the terminal `$ now ls` and then copy the url of the app you deployed.
+- Then you need to scale your app so that the Twitter bot will work forever.
+```
+$ now scale <copiedDeploymentUrl> sfo 1
+```
+- And you are done! The copied Deployment Url is where your bot is located!
 
 <img src="https://preview.ibb.co/c49L2J/Terminal.jpg" alt="Using Now.sh for deploying" title="Using Now.sh for deploying" width="100%">
 
@@ -127,6 +132,7 @@ When you do this, you'll see your latest deployments. Just copy/grab the deploym
 ```
 $ now rm <copied-deployment-url>
 $ now
+$ now scale <newDeploymentUrl> sfo 1
 ```
 By doing this, you are ensuring that no other bot is controlling your account other than your latest fresh Twitter bot.
 
